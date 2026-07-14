@@ -1,7 +1,5 @@
 import { properties } from "@/data/properties";
-import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
-import PropertyCard from "@/components/ui/PropertyCard";
 import StaysContent from "./stays-content";
 
 export const metadata = {
