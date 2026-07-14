@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Background & Text */
+  --background: #FAF8F5;
+  --foreground: #222222;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Pet Staycation Brand Colors */
+  --color-primary: #0F4C5C;      /* Dark Azure */
+  --color-secondary: #005D74;    /* Deep Teal */
+  --color-accent: #D4A373;       /* Sand Gold */
+  --color-surface: #F5F1EB;      /* Soft Cream */
+  --color-border: #E8DED3;       /* Warm Border */
+  --color-muted: #6B7280;        /* Muted Text */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121212;
+    --foreground: #F5F5F5;
+
+    --color-primary: #0F4C5C;
+    --color-secondary: #005D74;
+    --color-accent: #D4A373;
+    --color-surface: #1D2328;
+    --color-border: #39434A;
+    --color-muted: #A0A0A0;
   }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility classes for Tailwind compatibility */
+.bg-background {
+  background-color: var(--background);
+}
+.bg-foreground {
+  background-color: var(--foreground);
+}
+.bg-primary {
+  background-color: var(--color-primary);
+}
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+.bg-accent {
+  background-color: var(--color-accent);
+}
+.bg-surface {
+  background-color: var(--color-surface);
+}
+.bg-border {
+  background-color: var(--color-border);
+}
+.bg-muted {
+  background-color: var(--color-muted);
+}
+
+.text-background {
+  color: var(--background);
+}
+.text-foreground {
+  color: var(--foreground);
+}
+.text-primary {
+  color: var(--color-primary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+.text-accent {
+  color: var(--color-accent);
+}
+.text-surface {
+  color: var(--color-surface);
+}
+.text-border {
+  color: var(--color-border);
+}
+.text-muted {
+  color: var(--color-muted);
+}
+
+.border-background {
+  border-color: var(--background);
+}
+.border-foreground {
+  border-color: var(--foreground);
+}
+.border-primary {
+  border-color: var(--color-primary);
+}
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+.border-accent {
+  border-color: var(--color-accent);
+}
+.border-surface {
+  border-color: var(--color-surface);
+}
+.border-border {
+  border-color: var(--color-border);
+}
+.border-muted {
+  border-color: var(--color-muted);
+}
+
+.hover\:bg-primary:hover {
+  background-color: var(--color-primary);
+}
+.hover\:bg-secondary:hover {
+  background-color: var(--color-secondary);
+}
+.hover\:bg-accent:hover {
+  background-color: var(--color-accent);
+}
+.hover\:bg-surface:hover {
+  background-color: var(--color-surface);
+}
+.hover\:bg-muted:hover {
+  background-color: var(--color-muted);
+}
+
+.hover\:text-primary:hover {
+  color: var(--color-primary);
+}
+.hover\:text-secondary:hover {
+  color: var(--color-secondary);
+}
+.hover\:text-accent:hover {
+  color: var(--color-accent);
+}
+.hover\:text-surface:hover {
+  color: var(--color-surface);
+}
+.hover\:text-muted:hover {
+  color: var(--color-muted);
 }

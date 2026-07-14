@@ -1,0 +1,106 @@
+
+> petstaycation@0.1.0 dev
+> next dev
+
+Γû▓ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.129.128.17:3000
+Γ£ô Ready in 423ms
+
+Error: Route "/stays/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at StayDetailPage (app\stays\[id]\page.tsx:20:32)
+  18 |
+  19 | export default function StayDetailPage({ params }: { params: { id: string } }) {
+> 20 |   const stayId = Number(params.id);
+     |                                ^
+  21 |   const stay = properties.find(p => p.id === stayId);
+  22 |
+  23 |   console.log("params:", params);
+params: Promise {
+  { id: '1' },
+  Symbol(async_id_symbol): 605,
+  Symbol(trigger_async_id_symbol): 604
+}
+Error: Route "/stays/[id]" used `...params` or similar expression. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at Object.keys (<anonymous>)
+    at StayDetailPage (app\stays\[id]\page.tsx:23:11)
+  21 |   const stay = properties.find(p => p.id === stayId);
+  22 |
+> 23 |   console.log("params:", params);
+     |           ^
+  24 |   console.log("stayId:", stayId);
+  25 |   console.log("properties:", properties);
+  26 |   console.log("stay:", stay);
+stayId: NaN
+properties: [
+  {
+    id: 1,
+    title: 'Desert Palace Suite',
+    location: 'Jaipur, Rajasthan',
+    pricePerNight: 250,
+    rating: 4.9,
+    guestCount: 4,
+    bedroomCount: 2,
+    bathroomCount: 2,
+    amenities: [
+      'Pet-friendly',
+      'Swimming pool',
+      'Spa services',
+      'Royal dining',
+      'Camel rides'
+    ],
+    imageUrl: '/placeholder-desert-palace.jpg',
+    description: 'Experience royal living in a restored heritage palace with modern amenities and pet-friendly policies.'
+  },
+  {
+    id: 2,
+    title: 'Lakeview Heritage Haveli',
+    location: 'Udaipur, Rajasthan',
+    pricePerNight: 180,
+    rating: 4.8,
+    guestCount: 6,
+    bedroomCount: 3,
+    bathroomCount: 2,
+    amenities: [
+      'Pet-friendly',
+      'Lake access',
+      'Rooftop terrace',
+      'Traditional cuisine',
+      'Boat rides'
+    ],
+    imageUrl: '/placeholder-lakeview-haveli.jpg',
+    description: 'Charming haveli overlooking Lake Pichola with spacious courtyards and personalized pet care services.'
+  },
+  {
+    id: 3,
+    title: 'Dunes Desert Camp',
+    location: 'Jaisalmer, Rajasthan',
+    pricePerNight: 120,
+    rating: 4.7,
+    guestCount: 2,
+    bedroomCount: 1,
+    bathroomCount: 1,
+    amenities: [
+      'Pet-friendly',
+      'Desert safari',
+      'Cultural evenings',
+      'Stargazing',
+      'Campfire meals'
+    ],
+    imageUrl: '/placeholder-dunes-camp.jpg',
+    description: 'Authentic desert camping experience with luxury tents, traditional entertainment, and pet-friendly camel excursions.'
+  }
+]
+stay: undefined
+Error: Route "/stays/[id]" used `params.id`. `params` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
+    at <unknown> (app\stays\[id]\page.tsx:11:60)
+    at Array.find (<anonymous>)
+    at Module.generateMetadata (app\stays\[id]\page.tsx:11:27)
+   9 |
+  10 | export const generateMetadata = ({ params }: { params: { id: string } }) => {
+> 11 |   const stay = properties.find(p => p.id === Number(params.id));
+     |                                                            ^
+  12 |   if (!stay) return {};
+  13 |   return {
+  14 |     title: `${stay.title} | Pet Staycation`,
+ GET /stays/1 404 in 1070ms (next.js: 563ms, generate-params: 412ms, application-code: 507ms)

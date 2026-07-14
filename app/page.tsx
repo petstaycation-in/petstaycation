@@ -1,65 +1,133 @@
-import Image from "next/image";
+import Container from "@/components/ui/Container";
+import Button from "@/components/ui/Button";
+import PropertyCard from "@/components/ui/PropertyCard";
+import { properties } from "@/data/properties";
+
+export const metadata = {
+  title: "Pet Staycation - Pet-Friendly Stays in Rajasthan",
+  description: "Discover pet-friendly resorts, farm stays, and nature escapes across Rajasthan. Because adventures are better when your pets come along.",
+  openGraph: {
+    title: "Pet Staycation - Pet-Friendly Stays in Rajasthan",
+    description: "Discover pet-friendly resorts, farm stays, and nature escapes across Rajasthan. Because adventures are better when your pets come along.",
+    url: "https://petstaycation.in/",
+    siteName: "Pet Staycation",
+    images: [
+      {
+        url: "https://petstaycation.in/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Pet Staycation logo",
+      },
+    ],
+    locale: "en_IN",
+  },
+  twitter: {
+    handle: "@petstaycation",
+    site: "@petstaycation",
+    cardType: "summary_large_image",
+  },
+  alternates: {
+    canonical: "https://petstaycation.in/",
+  },
+};
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <section className="bg-background">
+      <Container>
+        {/* HERO SECTION (EXISTING - UNCHANGED) */}
+        <div className="flex flex-col lg:flex-row items-center gap-12 px-4 pt-20 pb-24">
+          <div className="flex-1 space-y-8 text-center lg:text-left">
+            <h1 className="mb-4 text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
+              Travel Together. Stay Together.
+            </h1>
+            <p className="text-lg text-muted max-w-xl md:max-w-lg">
+              Discover pet-friendly resorts, farm stays, and nature escapes across Rajasthan. Because adventures are better when your pets come along.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <Button
+                asChild
+                href="/stays"
+                variant="primary"
+              >
+                Explore Stays
+              </Button>
+              <Button
+                asChild
+                href="/contact"
+                variant="secondary"
+              >
+                Contact Us
+              </Button>
+            </div>
+          </div>
+          <div className="lg:w-1/2">
+            {/* Image Placeholder */}
+            <div className="aspect-w-16 aspect-h-9 bg-border dark:bg-border/50 flex items-center justify-center rounded-lg overflow-hidden">
+              <span className="text-muted dark:text-muted/50 text-xl">Hero Image Placeholder</span>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+        {/* NEW: FEATURED PET-FRIENDLY STAYS SECTION */}
+        <section className="mt-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-primary mb-4">
+              Featured Pet-Friendly Stays
+            </h2>
+            <p className="text-lg text-muted max-w-2xl mx-auto">
+              Discover handpicked resorts, farm stays, and nature escapes across Rajasthan that welcome your furry companions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 pt-16 pb-20">
+            {properties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button
+              asChild
+              href="/stays"
+              variant="primary"
+            >
+              See All Stays
+            </Button>
+          </div>
+        </section>
+
+        {/* CTA: List Your Property */}
+        <section className="mt-16 bg-background">
+          <div className="Container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-primary mb-4">
+                Host Guests & Earn
+              </h2>
+              <p className="text-lg text-muted max-w-2xl mx-auto">
+                List your pet-friendly property on Pet Staycation and start
+                earning from hosting guests with their furry companions.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center mt-6">
+                <Button
+                  asChild
+                  href="/list-property"
+                  variant="primary"
+                >
+                  List Your Property
+                </Button>
+                <Button
+                  asChild
+                  href="/stays"
+                  variant="secondary"
+                >
+                  Explore Stays
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Container>
+    </section>
   );
 }
