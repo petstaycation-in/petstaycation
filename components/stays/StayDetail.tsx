@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Container from "@/components/ui/Container";
 
+const sectionTone = "bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.98),_rgba(248,239,227,0.9))]";
+
+const bookingCardStyles = "animate-[fadeIn_0.45s_ease-out]";
+
 interface Property {
   id: number;
   title: string;
@@ -38,8 +42,38 @@ export default function StayDetail({ property }: StayDetailProps) {
 
   return (
     <Container>
-      <div className="pb-16 pt-2 md:pt-6">
-        <section className="overflow-hidden rounded-[2rem] border border-white/60 bg-gradient-to-br from-[#f8efe3] via-white to-[#f4ebde] shadow-[0_30px_90px_-35px_rgba(99,74,34,0.45)]">
+      <div className="pb-20 pt-2 md:pt-6">
+        <div className="sticky top-4 z-20 mb-6 flex justify-end">
+          <div className={`w-full max-w-md ${bookingCardStyles} rounded-[1.5rem] border border-primary/20 bg-white/95 p-4 shadow-[0_20px_60px_-25px_rgba(99,74,34,0.45)] backdrop-blur`}>
+
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Reserve this retreat</p>
+                <p className="mt-1 text-sm text-slate-600">From ₹{property.pricePerNight.toLocaleString()} / night</p>
+              </div>
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+                Premium
+              </span>
+            </div>
+
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+                <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">Check in</span>
+                <input type="date" className="w-full bg-transparent text-sm outline-none" />
+              </label>
+              <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+                <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">Check out</span>
+                <input type="date" className="w-full bg-transparent text-sm outline-none" />
+              </label>
+            </div>
+
+            <button className="mt-4 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90">
+              Reserve now
+            </button>
+          </div>
+        </div>
+
+        <section className={`overflow-hidden rounded-[2rem] border border-[#e9dccb] ${sectionTone} shadow-[0_30px_90px_-35px_rgba(99,74,34,0.45)]`}>
           <div className="relative h-[420px] md:h-[560px]">
             <Image
               src={heroImage}
@@ -54,13 +88,13 @@ export default function StayDetail({ property }: StayDetailProps) {
               <div className="w-full p-6 sm:p-8 lg:p-10">
                 <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                   <div className="max-w-2xl">
-                    <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
+                    <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-white/95 backdrop-blur-sm">
                       {property.propertyType}
                     </div>
-                    <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                    <h1 className="font-['Libre_Baskerville'] text-3xl font-semibold tracking-[0.01em] text-white sm:text-4xl lg:text-5xl">
                       {property.title}
                     </h1>
-                    <p className="mt-3 max-w-xl text-sm text-white/85 sm:text-base">
+                    <p className="mt-3 max-w-xl text-sm leading-7 text-white/85 sm:text-base">
                       {property.location} • Pet-friendly luxury retreat designed for slow travel and unforgettable stays.
                     </p>
                   </div>
@@ -84,7 +118,7 @@ export default function StayDetail({ property }: StayDetailProps) {
               </span>
               <span className="text-sm text-slate-500">★ {property.rating.toFixed(1)} guest rating</span>
             </div>
-            <h2 className="mt-4 text-2xl font-semibold text-slate-900 sm:text-3xl">
+            <h2 className="mt-4 font-['Libre_Baskerville'] text-2xl font-semibold text-slate-900 sm:text-3xl">
               A stay that feels like a private escape in the heart of Rajasthan.
             </h2>
             <p className="mt-4 text-base leading-7 text-slate-600">
@@ -142,7 +176,7 @@ export default function StayDetail({ property }: StayDetailProps) {
                 alt={`${property.title} - gallery`}
                 fill
                 sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-cover"
+                className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
               />
             </div>
 
@@ -154,7 +188,7 @@ export default function StayDetail({ property }: StayDetailProps) {
                     alt={`${property.title} - gallery ${idx + 2}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 30vw"
-                    className="object-cover"
+                    className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
                   />
                 </div>
               ))}
@@ -165,7 +199,7 @@ export default function StayDetail({ property }: StayDetailProps) {
             {images.map((src, idx) => (
               <div key={idx} className="snap-start shrink-0 overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white shadow-sm">
                 <div className="relative h-24 w-32 sm:h-28 sm:w-40">
-                  <Image src={src} alt={`${property.title} - preview ${idx + 1}`} fill sizes="(max-width: 768px) 35vw, 20vw" className="object-cover" />
+                  <Image src={src} alt={`${property.title} - preview ${idx + 1}`} fill sizes="(max-width: 768px) 35vw, 20vw" className="object-cover transition duration-700 ease-out hover:scale-[1.03]" />
                 </div>
               </div>
             ))}
@@ -174,7 +208,7 @@ export default function StayDetail({ property }: StayDetailProps) {
 
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
           <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
-            <h3 className="text-xl font-semibold text-slate-900">What makes this place special</h3>
+            <h3 className="font-['Libre_Baskerville'] text-xl font-semibold text-slate-900">What makes this place special</h3>
             <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
               {highlights.map((item) => (
                 <li key={item} className="flex items-start gap-3">
@@ -186,7 +220,7 @@ export default function StayDetail({ property }: StayDetailProps) {
           </div>
 
           <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
-            <h3 className="text-xl font-semibold text-slate-900">Amenities</h3>
+            <h3 className="font-['Libre_Baskerville'] text-xl font-semibold text-slate-900">Amenities</h3>
             <div className="mt-5 flex flex-wrap gap-2">
               {amenities.map((item) => (
                 <span key={item} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
@@ -198,7 +232,7 @@ export default function StayDetail({ property }: StayDetailProps) {
         </section>
 
         <section className="mt-8 rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
-          <h3 className="text-xl font-semibold text-slate-900">Nearby experiences</h3>
+          <h3 className="font-['Libre_Baskerville'] text-xl font-semibold text-slate-900">Nearby experiences</h3>
           <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {nearby.map((item) => (
               <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
