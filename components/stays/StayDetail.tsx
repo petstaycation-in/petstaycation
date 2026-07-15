@@ -47,29 +47,76 @@ export default function StayDetail({ property }: StayDetailProps) {
           <div className={`w-full max-w-md ${bookingCardStyles} rounded-[1.5rem] border border-primary/20 bg-white/95 p-4 shadow-[0_20px_60px_-25px_rgba(99,74,34,0.45)] backdrop-blur`}>
 
             <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="text-sm font-semibold text-slate-900">Reserve this retreat</p>
-                <p className="mt-1 text-sm text-slate-600">From ₹{property.pricePerNight.toLocaleString()} / night</p>
-              </div>
-              <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-                Premium
-              </span>
-            </div>
+  <div>
+    <p className="text-sm font-semibold text-slate-900">
+      Reserve your pet-friendly stay
+    </p>
 
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
-                <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">Check in</span>
-                <input type="date" className="w-full bg-transparent text-sm outline-none" />
-              </label>
-              <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
-                <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">Check out</span>
-                <input type="date" className="w-full bg-transparent text-sm outline-none" />
-              </label>
-            </div>
+    <div className="mt-2 flex items-end gap-1">
+      <span className="text-3xl font-semibold text-primary">
+        ₹{property.pricePerNight.toLocaleString()}
+      </span>
+      <span className="pb-1 text-sm text-slate-500">
+        / night
+      </span>
+    </div>
 
-            <button className="mt-4 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90">
-              Reserve now
-            </button>
+    <p className="mt-1 text-sm text-slate-600">
+      ★ {property.rating.toFixed(1)} guest rating
+    </p>
+  </div>
+
+  <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+    Verified
+  </span>
+</div>
+
+
+<div className="mt-5 grid gap-3 sm:grid-cols-2">
+
+  <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+    <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">
+      Check in
+    </span>
+    <input 
+      type="date" 
+      className="w-full bg-transparent text-sm outline-none" 
+    />
+  </label>
+
+
+  <label className="rounded-2xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700">
+    <span className="mb-1 block text-xs uppercase tracking-[0.2em] text-slate-500">
+      Check out
+    </span>
+    <input 
+      type="date" 
+      className="w-full bg-transparent text-sm outline-none" 
+    />
+  </label>
+
+</div>
+
+
+<div className="mt-3 rounded-2xl border border-slate-200 bg-slate-50 p-3">
+  <span className="text-xs uppercase tracking-[0.2em] text-slate-500">
+    Guests
+  </span>
+
+  <p className="mt-1 text-sm font-semibold text-slate-900">
+    Up to {property.guestCount} guests
+  </p>
+</div>
+
+
+<button className="mt-5 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90">
+  Reserve your stay
+</button>
+
+
+<p className="mt-3 text-center text-xs text-slate-500">
+  No payment required today • WhatsApp support available
+</p>
           </div>
         </div>
 
@@ -161,50 +208,67 @@ export default function StayDetail({ property }: StayDetailProps) {
         </section>
 
         <section className="mt-8">
-          <div className="mb-4 flex items-end justify-between gap-3">
-            <div>
-              <p className="text-sm font-medium uppercase tracking-[0.25em] text-primary">Gallery</p>
-              <h2 className="text-2xl font-semibold text-slate-900">Moments from the stay</h2>
-            </div>
-            <p className="hidden text-sm text-slate-500 sm:block">Swipe through the experience</p>
-          </div>
+  <div className="mb-5 flex items-end justify-between">
+    <div>
+      <p className="text-sm font-medium uppercase tracking-[0.25em] text-primary">
+        Gallery
+      </p>
+      <h2 className="mt-1 font-['Libre_Baskerville'] text-2xl font-semibold text-slate-900">
+        Experience the stay
+      </h2>
+    </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-            <div className="relative h-[320px] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 shadow-sm sm:h-[380px]">
-              <Image
-                src={images[1] ?? heroImage}
-                alt={`${property.title} - gallery`}
-                fill
-                sizes="(max-width: 768px) 100vw, 60vw"
-                className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
-              />
-            </div>
+    <p className="hidden text-sm text-slate-500 sm:block">
+      Explore rooms, dining, nature & pet experiences
+    </p>
+  </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              {galleryCards.map((src, idx) => (
-                <div key={idx} className="relative h-40 overflow-hidden rounded-[1.25rem] border border-slate-200 bg-slate-100 shadow-sm sm:h-32">
-                  <Image
-                    src={src}
-                    alt={`${property.title} - gallery ${idx + 2}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 30vw"
-                    className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+  <div className="grid gap-4 lg:grid-cols-4 lg:grid-rows-2">
 
-          <div className="mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
-            {images.map((src, idx) => (
-              <div key={idx} className="snap-start shrink-0 overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white shadow-sm">
-                <div className="relative h-24 w-32 sm:h-28 sm:w-40">
-                  <Image src={src} alt={`${property.title} - preview ${idx + 1}`} fill sizes="(max-width: 768px) 35vw, 20vw" className="object-cover transition duration-700 ease-out hover:scale-[1.03]" />
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+    <div className="relative h-[420px] overflow-hidden rounded-[2rem] border border-slate-200 lg:col-span-2 lg:row-span-2">
+      <Image
+        src={heroImage}
+        alt={`${property.title} main gallery`}
+        fill
+        sizes="(max-width:768px) 100vw, 50vw"
+        className="object-cover transition duration-700 hover:scale-105"
+      />
+    </div>
+
+    {images.slice(1,5).map((src, idx)=>(
+      <div
+        key={idx}
+        className="relative h-48 overflow-hidden rounded-[1.5rem] border border-slate-200"
+      >
+        <Image
+          src={src}
+          alt={`${property.title} gallery ${idx+2}`}
+          fill
+          sizes="(max-width:768px) 50vw, 25vw"
+          className="object-cover transition duration-700 hover:scale-105"
+        />
+      </div>
+    ))}
+
+  </div>
+
+  <div className="mt-4 flex gap-3 overflow-x-auto pb-2">
+    {images.map((src,idx)=>(
+      <div
+        key={idx}
+        className="relative h-24 w-36 shrink-0 overflow-hidden rounded-xl border border-slate-200"
+      >
+        <Image
+          src={src}
+          alt={`${property.title} preview ${idx+1}`}
+          fill
+          sizes="150px"
+          className="object-cover"
+        />
+      </div>
+    ))}
+  </div>
+</section>
 
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
           <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">

@@ -93,7 +93,16 @@ export const properties = [
       "Bishnoi Villages",
       "Local Rural Villages"
     ],
-    imageUrl: "/pstlogo.png",
+    imageUrl: "/images/stays/red-stone-fort/hero.webp",
+
+gallery: [
+  "/images/stays/red-stone-fort/hero.webp",
+  "/images/stays/red-stone-fort/gallery-1.webp",
+  "/images/stays/red-stone-fort/gallery-2.webp",
+  "/images/stays/red-stone-fort/gallery-3.webp",
+  "/images/stays/red-stone-fort/gallery-4.webp",
+  "/images/stays/red-stone-fort/gallery-5.webp",
+],
     description:
       "Experience the timeless charm of rural Rajasthan at The Red Stone Fort, a beautifully restored heritage retreat near Jodhpur. Combining authentic Rajput architecture with modern comforts, it offers gardens, cultural experiences, traditional hospitality, and a pet-friendly countryside escape.",
     petSize: "Large",
@@ -137,7 +146,16 @@ export const properties = [
       "Local Village Markets",
       "Rural Farm Trails"
     ],
-    imageUrl: "/pstlogo.png",
+    imageUrl: "/images/stays/organic-orchard-retreat/hero.webp",
+
+gallery: [
+  "/images/stays/organic-orchard-retreat/hero.webp",
+  "/images/stays/organic-orchard-retreat/gallery-1.webp",
+  "/images/stays/organic-orchard-retreat/gallery-2.webp",
+  "/images/stays/organic-orchard-retreat/gallery-3.webp",
+  "/images/stays/organic-orchard-retreat/gallery-4.webp",
+  "/images/stays/organic-orchard-retreat/gallery-5.webp",
+],
     description:
       "A tranquil countryside farmstay in Pilani surrounded by orchards, open farmland, and nature. Perfect for guests seeking a slow-travel experience, farm-fresh food, and a pet-friendly rural getaway.",
     petSize: "Large",

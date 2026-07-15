@@ -23,28 +23,62 @@ const libre = Libre_Baskerville({
   subsets: ["latin"],
 });
 
+
 export const metadata: Metadata = {
   title: "Pet Staycation",
   description: "Luxury pet-friendly travel experiences across Rajasthan",
   metadataBase: new URL("https://petstaycation.in"),
 };
 
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Pet Staycation",
+  "url": "https://petstaycation.in",
+  "description": "India's premium pet-friendly travel platform helping pet parents discover verified stays and holidays.",
+  "areaServed": "India",
+  "serviceType": [
+    "Pet-friendly stays",
+    "Luxury travel experiences",
+    "Holiday planning"
+  ],
+};
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html
       lang="en"
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${libre.className} h-full antialiased`}
     >
+
       <body className="min-h-full flex flex-col bg-background">
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schema),
+          }}
+        />
+
+
         <Navbar />
-        <main className="flex-1">{children}</main>
+
+        <main className="flex-1">
+          {children}
+        </main>
+
         <Footer />
+
       </body>
+
     </html>
   );
 }

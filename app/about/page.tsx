@@ -101,6 +101,56 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+            <section className="mt-12 rounded-[2rem] border border-primary/20 bg-gradient-to-br from-[#fdf7ee] via-white to-[#f3ebde] p-8 text-center shadow-[0_20px_60px_-35px_rgba(99,74,34,0.35)] sm:p-10">
+
+        <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">
+          Our Mission
+        </p>
+
+        <h2 className="mt-3 font-['Libre_Baskerville'] text-3xl font-semibold text-slate-900">
+          Making every pet feel welcome on every journey.
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-3xl text-base leading-8 text-slate-600">
+          Pet Staycation exists to make travelling with pets simple, joyful, and stress-free. 
+          We connect pet parents with beautiful stays where comfort, hospitality, and unforgettable memories come together.
+        </p>
+
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+
+          <div className="rounded-2xl bg-white p-5">
+            <p className="text-2xl font-semibold text-primary">
+              Verified
+            </p>
+            <p className="mt-1 text-sm text-slate-600">
+              Pet-friendly properties
+            </p>
+          </div>
+
+
+          <div className="rounded-2xl bg-white p-5">
+            <p className="text-2xl font-semibold text-primary">
+              Premium
+            </p>
+            <p className="mt-1 text-sm text-slate-600">
+              Curated travel experiences
+            </p>
+          </div>
+
+
+          <div className="rounded-2xl bg-white p-5">
+            <p className="text-2xl font-semibold text-primary">
+              Together
+            </p>
+            <p className="mt-1 text-sm text-slate-600">
+              Pets are family
+            </p>
+          </div>
+
+        </div>
+
+      </section>
     </Container>
   );
 }

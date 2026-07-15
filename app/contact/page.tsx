@@ -88,16 +88,42 @@ export default function ContactPage() {
         </div>
       </div>
 
-      <div className="mb-6 rounded-[1.5rem] border border-slate-200/80 bg-white p-4 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-5">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-3 text-sm text-slate-600">
-            <span className="rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary">Pet-friendly support</span>
-            <span>Tailored stay suggestions</span>
-            <span className="hidden sm:inline">•</span>
-            <span>Quick response within 24 hours</span>
+            <div className="mb-6 rounded-[1.5rem] border border-primary/20 bg-gradient-to-r from-[#fdf7ee] via-white to-[#f3ebde] p-5 shadow-[0_20px_60px_-35px_rgba(99,74,34,0.35)]">
+
+        <div className="grid gap-4 sm:grid-cols-3">
+
+          <div className="rounded-xl bg-white p-4">
+            <p className="text-sm font-semibold text-slate-900">
+              🐾 Pet Friendly
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Stays selected for pets
+            </p>
           </div>
-          <div className="text-sm font-semibold text-slate-700">Trusted by pet parents across Rajasthan</div>
+
+
+          <div className="rounded-xl bg-white p-4">
+            <p className="text-sm font-semibold text-slate-900">
+              🏡 Handpicked Stays
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Premium retreats & resorts
+            </p>
+          </div>
+
+
+          <div className="rounded-xl bg-white p-4">
+            <p className="text-sm font-semibold text-slate-900">
+              💬 Personal Support
+            </p>
+            <p className="mt-1 text-xs text-slate-600">
+              Assistance before booking
+            </p>
+          </div>
+
+
         </div>
+
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
