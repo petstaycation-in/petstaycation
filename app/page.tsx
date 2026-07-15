@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import PropertyCard from "@/components/ui/PropertyCard";
@@ -35,36 +36,43 @@ export default function Home() {
   return (
     <section className="bg-background">
       <Container>
-        {/* HERO SECTION (EXISTING - UNCHANGED) */}
-        <div className="flex flex-col lg:flex-row items-center gap-12 px-4 pt-20 pb-24">
-          <div className="flex-1 space-y-8 text-center lg:text-left">
-            <h1 className="mb-4 text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
-              Travel Together. Stay Together.
-            </h1>
-            <p className="text-lg text-muted max-w-xl md:max-w-lg">
-              Discover pet-friendly resorts, farm stays, and nature escapes across Rajasthan. Because adventures are better when your pets come along.
-            </p>
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <Button
-                asChild
-                href="/stays"
-                variant="primary"
-              >
-                Explore Stays
-              </Button>
-              <Button
-                asChild
-                href="/contact"
-                variant="secondary"
-              >
-                Contact Us
-              </Button>
-            </div>
+        {/* HERO SECTION - ENHANCED */}
+        <div className="relative">
+          <div className="absolute inset-0">
+            <Image
+              src="/pstlogo.png"
+              alt="Pet Staycation logo"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/40"></div>
           </div>
-          <div className="lg:w-1/2">
-            {/* Image Placeholder */}
-            <div className="aspect-w-16 aspect-h-9 bg-border dark:bg-border/50 flex items-center justify-center rounded-lg overflow-hidden">
-              <span className="text-muted dark:text-muted/50 text-xl">Hero Image Placeholder</span>
+          <div className="relative z-10 flex flex-col items-center px-4 pt-20 pb-24 lg:items-start lg:pt-28 lg:pb-32">
+            <div className="text-center lg:text-left max-w-xl">
+              <h1 className="mb-4 text-5xl font-bold text-primary md:text-6xl lg:text-7xl tracking-tighter">
+                Where Royal Heritage Welcomes Every Paw
+              </h1>
+              <p className="text-lg text-muted max-w-xl">
+                Experience curated palace stays, desert camps, and boutique retreats where pets are treated like royalty. Discover Rajasthan's most exclusive pet-friendly escapes.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-4 justify-center lg:justify-start">
+                <Button
+                  asChild
+                  href="/stays"
+                  variant="primary"
+                  className="hover:scale-[1.02] transition-transform duration-200"
+                >
+                  Explore Royal Retreats
+                </Button>
+                <Button
+                  asChild
+                  href="/contact"
+                  variant="secondary"
+                  className="hover:scale-[1.02] hover:bg-primary/10 transition-all duration-200"
+                >
+                  Speak to a Concierge
+                </Button>
+              </div>
             </div>
           </div>
         </div>
