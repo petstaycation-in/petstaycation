@@ -62,6 +62,11 @@ export default function ContactPage() {
                 View location
               </a>
             </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm text-slate-600">Weekend getaway</span>
+              <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm text-slate-600">Pet-friendly villa</span>
+              <span className="rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-sm text-slate-600">Rajasthan retreat</span>
+            </div>
           </div>
           <div className="relative overflow-hidden rounded-[1.5rem] border border-white/70 bg-white/80 p-5 backdrop-blur">
             <div className="relative h-44 w-full overflow-hidden rounded-[1.1rem]">
@@ -210,6 +215,9 @@ export default function ContactPage() {
               <p><span className="font-semibold text-slate-800">Phone:</span> +91 96490 88717</p>
               <p><span className="font-semibold text-slate-800">Email:</span> petstaycationindia@gmail.com</p>
               <p><span className="font-semibold text-slate-800">Emergency (Pet Care):</span> +91 77428 94249</p>
+            </div>
+            <div className="mt-5 rounded-[1rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+              “We help pet parents find calm, comfortable stays that feel like a proper holiday.”
             </div>
           </div>
 
