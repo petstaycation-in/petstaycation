@@ -13,6 +13,12 @@
   --color-border: #E8DED3;       /* Warm Border */
   --color-muted: #6B7280;        /* Muted Text */
 
+  /* Status Colors */
+--color-success: #4F7C65;      /* Success / Available */
+--color-warning: #C58B2A;      /* Warning */
+--color-danger: #B45353;       /* Error / Unavailable */
+--color-info: #2E6F95;         /* Information */
+
   /* Design Tokens */
   /* Typography */
   --font-size-xs: 0.75rem;   /* 12px */
@@ -130,6 +136,12 @@
     --color-surface: #1D2328;
     --color-border: #39434A;
     --color-muted: #A0A0A0;
+
+        /* Status Colors */
+    --color-success: #6FA082;
+    --color-warning: #D9A84B;
+    --color-danger: #D16B6B;
+    --color-info: #5B9AC4;
   }
 }
 
