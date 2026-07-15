@@ -43,6 +43,9 @@ export default function Home() {
               src="/pstlogo.png"
               alt="Pet Staycation logo"
               fill
+              sizes="(max-width: 768px) 100vw, 100vw"
+              priority
+              loading="eager"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/40"></div>

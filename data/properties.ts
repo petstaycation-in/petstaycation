@@ -35,7 +35,16 @@ export const properties = [
       "Savitri Mata Temple (15km)",
       "Pushkar Bazaar (12km)"
     ],
-    imageUrl: "/pstlogo.png",
+    imageUrl: "/images/stays/maru-retreat-farmstay/hero.png",
+
+    gallery: [
+  "/images/stays/maru-retreat-farmstay/hero.png",
+  "/images/stays/maru-retreat-farmstay/gallery-1.png",
+  "/images/stays/maru-retreat-farmstay/gallery-2.png",
+  "/images/stays/maru-retreat-farmstay/gallery-3.png",
+  "/images/stays/maru-retreat-farmstay/gallery-4.png",
+  "/images/stays/maru-retreat-farmstay/gallery-5.png",
+],
     description:
       "A peaceful luxury farmstay near Pushkar offering private villas, plunge pools, farm-to-table dining, village experiences, and authentic Marwari hospitality. Ideal for families, couples, groups, and pet parents seeking a quiet countryside escape.",
     petSize: "Large",

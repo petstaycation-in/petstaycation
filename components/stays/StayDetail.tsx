@@ -42,6 +42,7 @@ export default function StayDetail({ property }: StayDetailProps) {
           src={heroImage}
           alt={`${property.title} - hero`}
           fill
+          sizes="(max-width: 768px) 100vw, 100vw"
           className="object-cover"
         />
       </div>
@@ -57,6 +58,7 @@ export default function StayDetail({ property }: StayDetailProps) {
                   src={src}
                   alt={`${property.title} - thumbnail ${idx + 1}`}
                   fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover rounded-lg shadow-sm"
                 />
               </div>
@@ -71,6 +73,7 @@ export default function StayDetail({ property }: StayDetailProps) {
                   src={src}
                   alt={`${property.title} - thumbnail ${idx + 1}`}
                   fill
+                  sizes="(max-width: 768px) 25vw, 20vw"
                   className="object-cover rounded-lg shadow-sm"
                 />
               </div>

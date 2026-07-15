@@ -88,6 +88,7 @@ export default function MobileMenu({ onClose }: MobileMenuProps) {
                   width={36}
                   height={36}
                   priority
+                  loading="eager"
                 />
               </div>
               <div className="space-y-0.5">

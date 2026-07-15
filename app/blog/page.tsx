@@ -46,6 +46,7 @@ export default function BlogPage() {
               src="/pstlogo.png"
               alt="Pet travel tips"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -75,6 +76,7 @@ export default function BlogPage() {
               src="/pstlogo.png"
               alt="Pet friendly hotels"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -104,6 +106,7 @@ export default function BlogPage() {
               src="/pstlogo.png"
               alt="Pet wellness travel"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -133,6 +136,7 @@ export default function BlogPage() {
               src="/pstlogo.png"
               alt="Desert adventure with pets"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
