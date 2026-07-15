@@ -15,6 +15,10 @@ interface StaysFilterProps {
   setGuestCapacity: (value: number) => void;
   petSize: string;
   setPetSize: (value: string) => void;
+  bedroomCount: number;
+  setBedroomCount: (value: number) => void;
+  bathroomCount: number;
+  setBathroomCount: (value: number) => void;
   sortBy: string;
   setSortBy: (value: string) => void;
 }
@@ -32,6 +36,10 @@ export default function StaysFilter({
   setGuestCapacity,
   petSize,
   setPetSize,
+  bedroomCount,
+  setBedroomCount,
+  bathroomCount,
+  setBathroomCount,
   sortBy,
   setSortBy,
 }: StaysFilterProps) {
@@ -40,6 +48,12 @@ export default function StaysFilter({
 
   // Guest capacity options: we'll use numbers 1 to 6+
   const guestCapacityOptions = [1, 2, 3, 4, 5, 6];
+
+  // Bedroom count options: we'll use numbers 1 to 6+
+  const bedroomCountOptions = [1, 2, 3, 4, 5, 6];
+
+  // Bathroom count options: we'll use numbers 1 to 6+
+  const bathroomCountOptions = [1, 2, 3, 4, 5, 6];
 
   // Pet size options
   const petSizeOptions = ["All", "Small", "Medium", "Large"];
@@ -142,6 +156,44 @@ export default function StaysFilter({
               </select>
             </div>
 
+            {/* Bedroom Count */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                Bedroom Count
+              </label>
+              <select
+                value={bedroomCount}
+                onChange={(e) => setBedroomCount(Number(e.target.value))}
+                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
+              >
+                <option value="0">Any</option>
+                {bedroomCountOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option === 6 ? "6+" : option.toString()}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Bathroom Count */}
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                Bathroom Count
+              </label>
+              <select
+                value={bathroomCount}
+                onChange={(e) => setBathroomCount(Number(e.target.value))}
+                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
+              >
+                <option value="0">Any</option>
+                {bathroomCountOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option === 6 ? "6+" : option.toString()}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             {/* Pet Size Allowed */}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -189,6 +241,8 @@ export default function StaysFilter({
                 setPriceMax(0);
                 setGuestCapacity(1);
                 setPetSize("All");
+                setBedroomCount(0);
+                setBathroomCount(0);
                 setSortBy("priceLowToHigh");
               }}
               className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"

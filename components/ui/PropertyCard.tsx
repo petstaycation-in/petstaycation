@@ -66,6 +66,14 @@ const PropertyCard: FC<{ property: PropertyCardProps["property"] }> = ({ propert
           🐾 Pet-Friendly
         </div>
 
+        {/* Bedroom and Bathroom Count */}
+        <div className="flex items-center text-sm text-muted mb-3">
+          <span className="mr-1">🛏️</span>
+          <span className="mr-3">{property.bedroomCount}BR</span>
+          <span className="mr-1">🚿</span>
+          <span>{property.bathroomCount}BA</span>
+        </div>
+
         {/* Amenities */}
         <div className="flex flex-wrap gap-2 mb-4">
           {property.amenities.slice(0, 4).map((amenity) => (

@@ -32,6 +32,8 @@ export default function StaysContent({ properties }: StaysContentProps) {
   const [priceMax, setPriceMax] = useState(0);
   const [guestCapacity, setGuestCapacity] = useState(1);
   const [petSize, setPetSize] = useState("All");
+  const [bedroomCount, setBedroomCount] = useState(0);
+  const [bathroomCount, setBathroomCount] = useState(0);
   const [sortBy, setSortBy] = useState("priceLowToHigh");
 
   // Filter properties based on search and filters
@@ -58,12 +60,22 @@ export default function StaysContent({ properties }: StaysContentProps) {
       const matchesPetSize =
         petSize === "All" || property.petSize === petSize;
 
+      // Bedroom Count filter (0 means any)
+      const matchesBedroomCount =
+        bedroomCount === 0 || property.bedroomCount >= bedroomCount;
+
+      // Bathroom Count filter (0 means any)
+      const matchesBathroomCount =
+        bathroomCount === 0 || property.bathroomCount >= bathroomCount;
+
       return (
         matchesSearch &&
         matchesPropertyType &&
         matchesPrice &&
         matchesGuestCapacity &&
-        matchesPetSize
+        matchesPetSize &&
+        matchesBedroomCount &&
+        matchesBathroomCount
       );
     })
     // Sort properties
@@ -101,6 +113,10 @@ export default function StaysContent({ properties }: StaysContentProps) {
         setPetSize={setPetSize}
         sortBy={sortBy}
         setSortBy={setSortBy}
+        bedroomCount={bedroomCount}
+        setBedroomCount={setBedroomCount}
+        bathroomCount={bathroomCount}
+        setBathroomCount={setBathroomCount}
       />
 
       {/* Properties Grid */}
