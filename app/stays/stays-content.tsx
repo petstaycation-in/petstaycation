@@ -163,12 +163,35 @@ export default function StaysContent({ properties }: StaysContentProps) {
         </div>
       </div>
 
-      <div className="mb-6 flex flex-col gap-4 rounded-[1.5rem] border border-slate-200/80 bg-white p-4 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Browse available stays</p>
-          <p className="mt-1 text-sm text-slate-600">
-            {filteredProperties.length} stay{filteredProperties.length === 1 ? "" : "s"} ready to explore
-          </p>
+      <div className="mb-6 overflow-hidden rounded-[1.75rem] border border-slate-200/80 bg-[linear-gradient(135deg,_#f7f2e8_0%,_#ffffff_100%)] p-5 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Browse available stays</p>
+            <p className="mt-1 text-sm text-slate-600">
+              {filteredProperties.length} stay{filteredProperties.length === 1 ? "" : "s"} ready to explore
+            </p>
+          </div>
+          <div className="rounded-[1.25rem] border border-slate-200/80 bg-white/80 px-4 py-3 text-sm text-slate-600 shadow-sm">
+            “The best trips are the ones where your whole pack can arrive together — and settle in slowly.”
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-8 rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Plan with ease</p>
+            <h3 className="mt-2 text-2xl font-semibold text-slate-900">Book the stay that fits your pace, your pet, and your season.</h3>
+            <p className="mt-3 text-sm leading-7 text-slate-600">
+              Every listing includes the essentials for a calm arrival, a comfortable stay, and easy future planning — from pet-friendly layouts to thoughtful amenities and flexible booking guidance.
+            </p>
+          </div>
+          <a
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-primary/90"
+          >
+            Book this stay
+          </a>
         </div>
       </div>
 
