@@ -20,7 +20,7 @@ interface Property {
   checkOut: string;
   highlights: string[];
   nearbyAttractions: string[];
-  gallery?: string[]; // optional gallery images
+  gallery?: string[];
 }
 
 interface StayDetailProps {
@@ -28,59 +28,186 @@ interface StayDetailProps {
 }
 
 export default function StayDetail({ property }: StayDetailProps) {
-  // Determine image list: use gallery if provided and has more than one, else just the main image
   const galleryImages: string[] = property.gallery ?? [];
   const images: string[] = galleryImages.length > 0 ? galleryImages : [property.imageUrl];
   const heroImage = images[0];
-  const thumbnailImages = images.length > 1 ? images.slice(1, 5) : []; // up to 4 thumbnails
+  const galleryCards = images.slice(1, 5);
+  const highlights = property.highlights ?? [];
+  const amenities = property.amenities ?? [];
+  const nearby = property.nearbyAttractions ?? [];
 
   return (
     <Container>
-      {/* Hero Image */}
-      <div className="relative w-full h-[400px] md:h-[560px] overflow-hidden rounded-lg shadow-lg mb-8">
-        <Image
-          src={heroImage}
-          alt={`${property.title} - hero`}
-          fill
-          sizes="(max-width: 768px) 100vw, 100vw"
-          className="object-cover"
-        />
+      <div className="pb-16 pt-2 md:pt-6">
+        <section className="overflow-hidden rounded-[2rem] border border-white/60 bg-gradient-to-br from-[#f8efe3] via-white to-[#f4ebde] shadow-[0_30px_90px_-35px_rgba(99,74,34,0.45)]">
+          <div className="relative h-[420px] md:h-[560px]">
+            <Image
+              src={heroImage}
+              alt={`${property.title} - hero`}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 80vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-black/20" />
+            <div className="absolute inset-0 flex items-end">
+              <div className="w-full p-6 sm:p-8 lg:p-10">
+                <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                  <div className="max-w-2xl">
+                    <div className="mb-4 inline-flex rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-sm">
+                      {property.propertyType}
+                    </div>
+                    <h1 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-5xl">
+                      {property.title}
+                    </h1>
+                    <p className="mt-3 max-w-xl text-sm text-white/85 sm:text-base">
+                      {property.location} • Pet-friendly luxury retreat designed for slow travel and unforgettable stays.
+                    </p>
+                  </div>
+
+                  <div className="rounded-[1.25rem] border border-white/20 bg-white/90 p-4 text-slate-900 shadow-lg backdrop-blur md:min-w-[240px]">
+                    <div className="text-sm font-medium text-slate-500">Starting from</div>
+                    <div className="mt-1 text-3xl font-semibold text-primary">₹{property.pricePerNight.toLocaleString()}</div>
+                    <div className="mt-1 text-sm text-slate-600">per night</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+          <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.45)] sm:p-8">
+            <div className="flex items-center gap-3">
+              <span className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+                Curated for comfort
+              </span>
+              <span className="text-sm text-slate-500">★ {property.rating.toFixed(1)} guest rating</span>
+            </div>
+            <h2 className="mt-4 text-2xl font-semibold text-slate-900 sm:text-3xl">
+              A stay that feels like a private escape in the heart of Rajasthan.
+            </h2>
+            <p className="mt-4 text-base leading-7 text-slate-600">
+              {property.description}
+            </p>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-3">
+              <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="text-sm text-slate-500">Guests</div>
+                <div className="mt-1 text-xl font-semibold text-slate-900">{property.guestCount}</div>
+              </div>
+              <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="text-sm text-slate-500">Bedrooms</div>
+                <div className="mt-1 text-xl font-semibold text-slate-900">{property.bedroomCount}</div>
+              </div>
+              <div className="rounded-2xl bg-slate-50 p-4">
+                <div className="text-sm text-slate-500">Bathrooms</div>
+                <div className="mt-1 text-xl font-semibold text-slate-900">{property.bathroomCount}</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-[1.75rem] border border-primary/20 bg-gradient-to-br from-[#fdf7ee] via-white to-[#f3ebde] p-6 shadow-[0_20px_60px_-35px_rgba(99,74,34,0.35)] sm:p-8">
+            <h3 className="text-lg font-semibold text-slate-900">Stay essentials</h3>
+            <div className="mt-5 space-y-4 text-sm text-slate-700">
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4">
+                <div className="text-xs uppercase tracking-[0.24em] text-slate-500">Check in</div>
+                <div className="mt-1 text-base font-semibold text-slate-900">{property.checkIn}</div>
+              </div>
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4">
+                <div className="text-xs uppercase tracking-[0.24em] text-slate-500">Check out</div>
+                <div className="mt-1 text-base font-semibold text-slate-900">{property.checkOut}</div>
+              </div>
+              <div className="rounded-2xl border border-white/70 bg-white/80 p-4">
+                <div className="text-xs uppercase tracking-[0.24em] text-slate-500">Pet policy</div>
+                <div className="mt-1 text-base font-semibold text-slate-900">{property.petPolicy}</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8">
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-[0.25em] text-primary">Gallery</p>
+              <h2 className="text-2xl font-semibold text-slate-900">Moments from the stay</h2>
+            </div>
+            <p className="hidden text-sm text-slate-500 sm:block">Swipe through the experience</p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+            <div className="relative h-[320px] overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-100 shadow-sm sm:h-[380px]">
+              <Image
+                src={images[1] ?? heroImage}
+                alt={`${property.title} - gallery`}
+                fill
+                sizes="(max-width: 768px) 100vw, 60vw"
+                className="object-cover"
+              />
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              {galleryCards.map((src, idx) => (
+                <div key={idx} className="relative h-40 overflow-hidden rounded-[1.25rem] border border-slate-200 bg-slate-100 shadow-sm sm:h-32">
+                  <Image
+                    src={src}
+                    alt={`${property.title} - gallery ${idx + 2}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 30vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-4 flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory">
+            {images.map((src, idx) => (
+              <div key={idx} className="snap-start shrink-0 overflow-hidden rounded-[1.2rem] border border-slate-200 bg-white shadow-sm">
+                <div className="relative h-24 w-32 sm:h-28 sm:w-40">
+                  <Image src={src} alt={`${property.title} - preview ${idx + 1}`} fill sizes="(max-width: 768px) 35vw, 20vw" className="object-cover" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mt-8 grid gap-6 lg:grid-cols-2">
+          <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
+            <h3 className="text-xl font-semibold text-slate-900">What makes this place special</h3>
+            <ul className="mt-5 space-y-3 text-sm leading-7 text-slate-600">
+              {highlights.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
+            <h3 className="text-xl font-semibold text-slate-900">Amenities</h3>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {amenities.map((item) => (
+                <span key={item} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8 rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
+          <h3 className="text-xl font-semibold text-slate-900">Nearby experiences</h3>
+          <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {nearby.map((item) => (
+              <div key={item} className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
-
-      {/* Thumbnails Section */}
-      {thumbnailImages.length > 0 && (
-        <>
-          {/* Desktop: Grid */}
-          <div className="grid gap-4 md:grid-cols-2 hidden md:block">
-            {thumbnailImages.map((src, idx) => (
-              <div key={idx} className="relative w-full h-48">
-                <Image
-                  src={src}
-                  alt={`${property.title} - thumbnail ${idx + 1}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover rounded-lg shadow-sm"
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: Horizontal Scroll */}
-          <div className="flex overflow-x-auto space-x-4 pt-4 block md:hidden">
-            {thumbnailImages.map((src, idx) => (
-              <div key={idx} className="flex-shrink-0 relative w-24 h-16">
-                <Image
-                  src={src}
-                  alt={`${property.title} - thumbnail ${idx + 1}`}
-                  fill
-                  sizes="(max-width: 768px) 25vw, 20vw"
-                  className="object-cover rounded-lg shadow-sm"
-                />
-              </div>
-            ))}
-          </div>
-        </>
-      )}
     </Container>
   );
 }
