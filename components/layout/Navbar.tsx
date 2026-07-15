@@ -2,30 +2,32 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  // Initialize isScrolled based on initial scroll position (if window is defined)
-  const [isScrolled, setIsScrolled] = useState(() => {
+
+  // Scroll detection for sticky header effects using useSyncExternalStore to avoid hydration mismatch
+  const getScrollSnapshot = useCallback(() => {
     if (typeof window !== 'undefined') {
       return window.scrollY > 0;
     }
-    return false;
-  });
-  const pathname = usePathname();
+    return false; // server snapshot
+  }, []);
 
-  // Scroll detection for sticky header effects
-  useEffect(() => {
+  const subscribe = useCallback((callback: () => void) => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      callback();
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isScrolled = useSyncExternalStore(subscribe, getScrollSnapshot, getScrollSnapshot);
+
+  const pathname = usePathname();
 
   // Handle escape key to close mobile menu
   useEffect(() => {
