@@ -15,7 +15,7 @@ export const destinations = [
       "Ajmer Sharif Dargah (nearby)",
     ],
     petFriendlyScore: 9,
-    imageUrl: "/placeholder-pushkar.jpg",
+    imageUrl: "/pstlogo.png",
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ export const destinations = [
       "Sardar Samand Lake Palace",
     ],
     petFriendlyScore: 8,
-    imageUrl: "/placeholder-jodhpur.jpg",
+    imageUrl: "/pstlogo.png",
   },
   {
     id: 3,
@@ -51,6 +51,6 @@ export const destinations = [
       "Nearby Farms and Orchards",
     ],
     petFriendlyScore: 8,
-    imageUrl: "/placeholder-pilani.jpg",
+    imageUrl: "/pstlogo.png",
   },
 ];

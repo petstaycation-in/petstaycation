@@ -2,82 +2,218 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  // Initialize isScrolled based on initial scroll position (if window is defined)
+  const [isScrolled, setIsScrolled] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.scrollY > 0;
+    }
+    return false;
+  });
+  const pathname = usePathname();
+
+  // Scroll detection for sticky header effects
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Handle escape key to close mobile menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // Memoize toggle function to prevent unnecessary re-renders
+  const toggleMenu = useCallback(() => setIsOpen((prev) => !prev), []);
+
+  // Determine active route for navigation links
+  const isActive = useMemo(
+    () => (href: string) => pathname === href || (href === "/" && pathname === ""),
+    [pathname]
+  );
 
   return (
     <>
-      <nav className="bg-surface/90 backdrop-blur-sm border-b border-border/20 sticky top-0 z-50">
+      <nav
+        className={`
+          bg-surface/90
+          backdrop-blur-sm
+          ${isScrolled ? "bg-surface/80 backdrop-blur-md" : "bg-surface/95"}
+          border-b
+          border-border/20
+          sticky
+          top-0
+          z-50
+          transition-all
+          duration-300
+        `}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <Link href="/" className="flex items-center gap-3">
-  <Image
-  src="/pstlogo.png"
-  alt="Pet Staycation"
-  width={46}
-  height={46}
-  priority
-/>
+          <div className="flex justify-between h-16 items-center">
+            {/* Brand Logo */}
+            <div className="flex items-center space-x-3">
+              <Link href="/" className="flex items-center">
+                <Image
+                  src="/pstlogo.png"
+                  alt="Pet Staycation Logo"
+                  width={48}
+                  height={48}
+                  priority
+                  className="transition-transform duration-300 group-hover:scale-105"
+                />
+              </Link>
+              <div className="space-y-1">
+                <h1 className="text-2xl font-bold tracking-tighter">
+                  <span className="text-secondary">Pet</span>{" "}
+                  <span className="text-accent">Staycation</span>
+                </h1>
+                <p className="text-xs text-muted tracking-wider">
+                  Premium Pet-Friendly Stays
+                </p>
+              </div>
+            </div>
 
-<h1
-  className="text-[30px] font-semibold whitespace-nowrap tracking-tight"
-  style={{ fontFamily: "'Libre Baskerville', serif" }}
->
-  <span style={{ color: "#005D74" }}>Pet</span>{" "}
-  <span style={{ color: "#D4A373" }}>Staycation</span>
-</h1>
-</Link>
-  </div>
-  <div className="hidden md:flex md:items-center md:space-x-6">
-  <Link href="/stays" className="text-foreground hover:text-primary transition-colors">
-  Stays
-  </Link>
-  <Link href="/destinations" className="text-foreground hover:text-primary transition-colors">
-   Destinations
-  </Link>
-  <Link href="/blog" className="text-foreground hover:text-primary transition-colors">
-   Blog
-   </Link>
-   <Link href="/about" className="text-foreground hover:text-primary transition-colors">
-   About
-   </Link>
-   <Link href="/contact" className="text-foreground hover:text-primary transition-colors">
-   Contact
-   </Link>
-   <Link href="/list-property" className="bg-primary text-surface px-4 py-2 rounded-md text-sm font-medium hover:bg-primary/90 transition-colors">
-   List Your Property
-   </Link>
-   <Link href="/admin" className="bg-muted/20 text-muted px-4 py-2 rounded-md text-sm font-medium hover:bg-muted/30 transition-colors">
-   Admin
-   </Link>
-   </div>
-   <div className="flex items-center md:hidden">
-   <button
-    onClick={() => setIsOpen(!isOpen)}
-    className="rounded-md p-2 text-muted hover:text-foreground focus:outline-none"
-    aria-controls="mobile-menu"
-    aria-expanded={isOpen}
-    >
-    {isOpen ? (
-    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-    </svg>
-    ) : (
-    <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-     )}
-     </button>
-     </div>
-      </div>
-      </div>
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex md:items-center md:space-x-8">
+              {/* Navigation Links */}
+              <div className="flex space-x-6">
+                <Link
+                  href="/stays"
+                  className={`
+                    flex items-center px-3 py-2 rounded-md text-sm font-medium
+                    ${isActive("/stays")
+                      ? "bg-primary text-surface"
+                      : "text-foreground hover:text-primary"}
+                    transition-all duration-200
+                    hover:bg-primary/5
+                  `}
+                  aria-label="Stays page"
+                >
+                  Stays
+                </Link>
+                <Link
+                  href="/destinations"
+                  className={`
+                    flex items-center px-3 py-2 rounded-md text-sm font-medium
+                    ${isActive("/destinations")
+                      ? "bg-primary text-surface"
+                      : "text-foreground hover:text-primary"}
+                    transition-all duration-200
+                    hover:bg-primary/5
+                  `}
+                  aria-label="Destinations page"
+                >
+                  Destinations
+                </Link>
+                <Link
+                  href="/blog"
+                  className={`
+                    flex items-center px-3 py-2 rounded-md text-sm font-medium
+                    ${isActive("/blog")
+                      ? "bg-primary text-surface"
+                      : "text-foreground hover:text-primary"}
+                    transition-all duration-200
+                    hover:bg-primary/5
+                  `}
+                  aria-label="Blog page"
+                >
+                  Blog
+                </Link>
+                <Link
+                  href="/about"
+                  className={`
+                    flex items-center px-3 py-2 rounded-md text-sm font-medium
+                    ${isActive("/about")
+                      ? "bg-primary text-surface"
+                      : "text-foreground hover:text-primary"}
+                    transition-all duration-200
+                    hover:bg-primary/5
+                  `}
+                  aria-label="About page"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  className={`
+                    flex items-center px-3 py-2 rounded-md text-sm font-medium
+                    ${isActive("/contact")
+                      ? "bg-primary text-surface"
+                      : "text-foreground hover:text-primary"}
+                    transition-all duration-200
+                    hover:bg-primary/5
+                  `}
+                  aria-label="Contact page"
+                  >
+                  Contact
+                </Link>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex space-x-3">
+                <Link
+                  href="/list-property"
+                  className="flex items-center px-5 py-2.5 rounded-xl bg-primary text-surface font-semibold text-sm hover:bg-primary/90 transition-all duration-200 shadow-sm hover:shadow-md transform hover:-translate-y-0.5"
+                  aria-label="List your property"
+                >
+                  List Your Property
+                </Link>
+                <Link
+                  href="/admin"
+                  className="flex items-center px-5 py-2.5 rounded-xl border border-border/30 text-muted hover:text-primary hover:bg-primary/10 transition-all duration-200"
+                  aria-label="Admin dashboard"
+                >
+                  Admin
+                </Link>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <div className="flex items-center md:hidden">
+              <button
+                onClick={toggleMenu}
+                className="p-3 rounded-xl bg-surface/80 hover:bg-surface/70 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"
+                aria-controls="mobile-menu"
+                aria-expanded={isOpen}
+                aria-label="Toggle mobile navigation menu"
+              >
+                {isOpen ? (
+                  <svg className="h-6 w-6 text-muted transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                ) : (
+                  <svg className="h-6 w-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
       </nav>
 
-      {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)}>
+          <MobileMenu onClose={() => setIsOpen(false)} />
+        </div>
+      )}
     </>
   );
 }

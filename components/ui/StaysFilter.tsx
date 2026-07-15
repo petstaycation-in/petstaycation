@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { properties } from "@/data/properties";
 
 interface StaysFilterProps {
@@ -71,7 +70,7 @@ export default function StaysFilter({
           </div>
 
           {/* Filters Row */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {/* Property Type */}
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -95,7 +94,7 @@ export default function StaysFilter({
               <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                 Price Range (₹)
               </label>
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="gap-3 sm:grid-cols-2">
                 <div>
                   <label className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
                     Min
@@ -104,7 +103,7 @@ export default function StaysFilter({
                     type="number"
                     value={priceMin}
                     onChange={(e) => setPriceMin(e.target.value === "" ? 0 : Number(e.target.value))}
-                    className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
+                    className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
                     placeholder="0"
                     min="0"
                   />
@@ -117,7 +116,7 @@ export default function StaysFilter({
                     type="number"
                     value={priceMax}
                     onChange={(e) => setPriceMax(e.target.value === "" ? 0 : Number(e.target.value))}
-                    className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
+                    className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
                     placeholder="1000"
                     min="0"
                   />
@@ -133,7 +132,7 @@ export default function StaysFilter({
               <select
                 value={guestCapacity}
                 onChange={(e) => setGuestCapacity(Number(e.target.value))}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
+                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
               >
                 {guestCapacityOptions.map((option) => (
                   <option key={option} value={option}>
@@ -151,7 +150,7 @@ export default function StaysFilter({
               <select
                 value={petSize}
                 onChange={(e) => setPetSize(e.target.value)}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
+                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
               >
                 {petSizeOptions.map((option) => (
                   <option key={option} value={option}>
@@ -170,14 +169,14 @@ export default function StaysFilter({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+              className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green`}
+            >
+              {sortOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Reset Button */}

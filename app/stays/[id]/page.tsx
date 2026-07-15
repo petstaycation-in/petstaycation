@@ -3,6 +3,7 @@ import { properties } from "@/data/properties";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import BookingInquiryForm from "@/components/forms/BookingInquiryForm";
+import Image from "next/image";
 
 export function generateStaticParams() {
   return properties.map((p) => ({
@@ -77,11 +78,12 @@ export default async function StayDetailPage({
   return (
     <Container>
       {/* Hero Image */}
-      <div className="aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden rounded-lg">
-        <img
+      <div className="relative aspect-video bg-gray-200 dark:bg-gray-700 overflow-hidden rounded-lg">
+        <Image
           src={stay.imageUrl}
           alt={stay.title}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
         />
       </div>
 

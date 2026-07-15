@@ -43,7 +43,7 @@ export default function BlogPage() {
         <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div className="aspect-w-16 aspect-h-9 relative">
             <Image
-              src="/placeholder-blog-1.jpg"
+              src="/pstlogo.png"
               alt="Pet travel tips"
               fill
               className="object-cover"
@@ -72,7 +72,7 @@ export default function BlogPage() {
         <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div className="aspect-w-16 aspect-h-9 relative">
             <Image
-              src="/placeholder-blog-2.jpg"
+              src="/pstlogo.png"
               alt="Pet friendly hotels"
               fill
               className="object-cover"
@@ -101,7 +101,7 @@ export default function BlogPage() {
         <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div className="aspect-w-16 aspect-h-9 relative">
             <Image
-              src="/placeholder-blog-3.jpg"
+              src="/pstlogo.png"
               alt="Pet wellness travel"
               fill
               className="object-cover"
@@ -130,7 +130,7 @@ export default function BlogPage() {
         <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
           <div className="aspect-w-16 aspect-h-9 relative">
             <Image
-              src="/placeholder-blog-4.jpg"
+              src="/pstlogo.png"
               alt="Desert adventure with pets"
               fill
               className="object-cover"

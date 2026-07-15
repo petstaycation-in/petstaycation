@@ -5,8 +5,24 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import StaysFilter from "@/components/ui/StaysFilter";
 import PropertyCard from "@/components/ui/PropertyCard";
 
+interface Property {
+  id: number;
+  title: string;
+  location: string;
+  propertyType: string;
+  pricePerNight: number;
+  guestCount: number;
+  petSize: string;
+  rating: number;
+  bedroomCount: number;
+  bathroomCount: number;
+  amenities: string[];
+  imageUrl: string;
+  description: string;
+}
+
 interface StaysContentProps {
-  properties: Array<any>;
+  properties: Array<Property>;
 }
 
 export default function StaysContent({ properties }: StaysContentProps) {

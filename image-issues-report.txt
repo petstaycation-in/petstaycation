@@ -1,0 +1,44 @@
+IMAGE REFERENCE ANALYSIS REPORT
+===============================
+
+SUMMARY:
+- Total unique image references found: 11
+- Existing images: 1 (pstlogo.png)
+- Missing images: 10
+
+DETAILS OF ISSUES:
+
+1. File: app/blog/page.tsx
+   - Line 46: src="/placeholder-blog-1.jpg" - MISSING
+   - Line 75: src="/placeholder-blog-2.jpg" - MISSING
+   - Line 104: src="/placeholder-blog-3.jpg" - MISSING
+   - Line 133: src="/placeholder-blog-4.jpg" - MISSING
+
+2. File: app/destinations/page.tsx
+   - Line 50: src={destination.imageUrl} - REFERS TO MISSING IMAGES:
+     * For Pushkar: /placeholder-pushkar.jpg (MISSING)
+     * For Jodhpur: /placeholder-jodhpur.jpg (MISSING)
+     * For Pilani: /placeholder-pilani.jpg (MISSING)
+
+3. File: app/destinations/[slug]/page.tsx
+   - Line 92: src={destination.imageUrl} - REFERS TO MISSING IMAGES (same as above)
+
+4. File: app/stays/[id]/page.tsx
+   - Line 82: src={stay.imageUrl} - REFERS TO MISSING IMAGES:
+     * For Maru Retreat: /placeholder-desert-palace.jpg (MISSING)
+     * For Red Stone Fort: /images/stays/red-stone-fort/hero.webp (MISSING)
+     * For Organic Orchard: /placeholder-dunes-camp.jpg (MISSING)
+
+5. File: components/layout/Navbar.tsx
+   - Line 19: src="/pstlogo.png" - EXISTS (OK)
+
+6. File: components/ui/PropertyCard.tsx
+   - Line 30: src={property.imageUrl} - REFERS TO MISSING IMAGES (same as stays/[id]/page.tsx)
+
+CORRUPTED/INCORRECT FILES: None found (all existing files are valid)
+INCORRECT EXTENSIONS: None found
+INCORRECT PATHS: None found (paths are correct but files don't exist)
+
+RECOMMENDED FIXES:
+Replace all missing images with existing placeholder: /pstlogo.png
+This maintains the layout and design while resolving missing image errors.

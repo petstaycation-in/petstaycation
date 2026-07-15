@@ -35,7 +35,7 @@ export const properties = [
       "Savitri Mata Temple (15km)",
       "Pushkar Bazaar (12km)"
     ],
-    imageUrl: "/placeholder-desert-palace.jpg",
+    imageUrl: "/pstlogo.png",
     description:
       "A peaceful luxury farmstay near Pushkar offering private villas, plunge pools, farm-to-table dining, village experiences, and authentic Marwari hospitality. Ideal for families, couples, groups, and pet parents seeking a quiet countryside escape.",
     petSize: "Large",
@@ -84,7 +84,7 @@ export const properties = [
       "Bishnoi Villages",
       "Local Rural Villages"
     ],
-    imageUrl: "/images/stays/red-stone-fort/hero.webp",
+    imageUrl: "/pstlogo.png",
     description:
       "Experience the timeless charm of rural Rajasthan at The Red Stone Fort, a beautifully restored heritage retreat near Jodhpur. Combining authentic Rajput architecture with modern comforts, it offers gardens, cultural experiences, traditional hospitality, and a pet-friendly countryside escape.",
     petSize: "Large",
@@ -128,7 +128,7 @@ export const properties = [
       "Local Village Markets",
       "Rural Farm Trails"
     ],
-    imageUrl: "/placeholder-dunes-camp.jpg",
+    imageUrl: "/pstlogo.png",
     description:
       "A tranquil countryside farmstay in Pilani surrounded by orchards, open farmland, and nature. Perfect for guests seeking a slow-travel experience, farm-fresh food, and a pet-friendly rural getaway.",
     petSize: "Large",
