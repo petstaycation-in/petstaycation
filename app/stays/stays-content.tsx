@@ -70,8 +70,12 @@ export default function StaysContent({ properties }: StaysContentProps) {
         (priceMin === 0 || property.pricePerNight >= priceMin) &&
         (priceMax === 0 || property.pricePerNight <= priceMax);
 
-      // Guest Capacity filter (property must accommodate at least the selected number)
-      const matchesGuestCapacity = property.guestCount >= guestCapacity;
+      // A zero capacity means "not yet published", not "no guests allowed".
+      // Keep those properties visible in the default browse state, but do not
+      // promise that they satisfy an explicitly selected larger group size.
+      const matchesGuestCapacity =
+        property.guestCount >= guestCapacity ||
+        (property.guestCount === 0 && guestCapacity === 1);
 
       // Pet Size filter
       const matchesPetSize =
@@ -155,7 +159,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
                   setPetSize("All");
                   setBedroomCount(0);
                   setBathroomCount(0);
-                  setSortBy("priceLowToHigh");
+                  setSortBy("recommended");
                 }}
                 className="mt-3 text-sm font-medium text-primary"
               >
