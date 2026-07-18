@@ -2,8 +2,8 @@
 export const properties = [
   {
     id: 1,
-    title: "Marubhoomi Farmstay Pushkar",
-    location: "Picholiya countryside, near Pushkar",
+    title: "Maru Retreat Farmstay",
+    location: "Pushkar countryside, Rajasthan",
     featured: true,
     recommended: true,
     priorityScore: 100,
@@ -61,7 +61,7 @@ export const properties = [
   {
     id: 2,
     title: "The Red Stone Fort",
-    location: "Dhundhara, near Jodhpur, Rajasthan",
+    location: "Jodhpur countryside, Rajasthan",
     pricePerNight: 0,
     rating: 0,
     guestCount: 0,
@@ -97,7 +97,7 @@ export const properties = [
       "Jaswant Thada",
       "Umaid Bhawan Palace",
       "Mandore Gardens",
-      "Dhundhara Village",
+      "Rural village trails",
       "Rural Farms & Artisan Communities"
     ],
     imageUrl: "/images/stays/red-stone-fort/hero/red-stone-fort-garden-facade.webp",
@@ -113,7 +113,7 @@ gallery: [
   "/images/stays/red-stone-fort/experiences/red-stone-fort-hosted-welcome.webp",
 ],
     description:
-      "An intimate, pet-friendly heritage homestay in Dhundhara, approximately 55 km from Jodhpur. The one-acre fortified residence brings together four ensuite guestrooms, two gardens, a swimming pool, fresh dining and hosted rural experiences.",
+      "An intimate, pet-friendly heritage homestay in the Jodhpur countryside. The fortified residence brings together four ensuite guestrooms, gardens, a swimming pool, fresh dining and hosted rural experiences.",
     petSize: "Large",
     propertyType: "Heritage Homestay"
   },
@@ -121,7 +121,7 @@ gallery: [
   {
     id: 3,
     title: "Organic Orchard Retreat",
-    location: "Pilani, Rajasthan",
+    location: "Rajasthan countryside",
     pricePerNight: 4500,
     rating: 4.8,
     guestCount: 6,
@@ -164,7 +164,7 @@ gallery: [
   "/images/stays/organic-orchard-retreat/pet-friendly.png",
 ],
     description:
-      "A considered countryside escape set within a working organic farm in Pilani, where orchards, indigenous animals and seasonal produce shape a slower rhythm of stay. Designed for families, couples and pet parents seeking fresh air, thoughtful comfort and meaningful time outdoors.",
+      "A considered countryside escape set within a working organic farm, where orchards, indigenous animals and seasonal produce shape a slower rhythm of stay. Designed for families, couples and pet parents seeking fresh air, thoughtful comfort and meaningful time outdoors.",
     petSize: "Large",
     propertyType: "Organic Farmstay"
   }

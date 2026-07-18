@@ -10,13 +10,10 @@ export type PropertyExperience = {
 export const redStoneFort = {
   publicName: "The Red Stone Fort",
   descriptor: "An Intimate Heritage Homestay in Rural Rajasthan",
-  locationLabel: "Dhundhara, near Jodhpur, Rajasthan",
-  shortLocation: "Dhundhara, Rajasthan",
+  locationLabel: "Jodhpur countryside, Rajasthan",
+  shortLocation: "Rajasthan countryside",
   address: {
-    streetAddress: "Village Dhundhara, Tehsil Luni",
-    addressLocality: "Dhundhara",
     addressRegion: "Rajasthan",
-    postalCode: "342801",
     addressCountry: "IN",
   },
   propertySize: "Approximately 1 acre",
@@ -25,8 +22,8 @@ export const redStoneFort = {
   gardens: 2,
   pool: true,
   petFriendly: true,
-  coordinates: { latitude: 25.8841875, longitude: 72.7990625 },
-  plusCode: "VQMX+MJ, Dhundhara, Rajasthan",
+  coordinates: null,
+  plusCode: null,
   access: {
     jodhpurDistance: "Approximately 55 km",
     driveTime: "Generally 1–1.5 hours, depending on traffic and route conditions",
@@ -68,7 +65,7 @@ export const redStoneFort = {
   },
   experiences: [
     { id: "day-lunch", title: "Lunch for Day Visitors", description: "A freshly prepared lunch at the heritage residence for guests visiting without an overnight stay. Prior reservation is required.", pricingType: "per_person", price: 1500 },
-    { id: "village-walk", title: "Village Walk", description: "Explore Dhundhara on foot and encounter everyday rural life, local streets, community spaces and the slower rhythm surrounding the residence.", pricingType: "complimentary" },
+    { id: "village-walk", title: "Village Walk", description: "Explore the surrounding countryside on foot and encounter everyday rural life and a slower local rhythm.", pricingType: "complimentary" },
     { id: "wilderness-drive", title: "Countryside Drive with High Tea", description: "Travel beyond the village into the surrounding countryside, with a high-tea stop shaped around the landscape and time of day.", pricingType: "per_jeep", price: 3500 },
     { id: "artisan-safari", title: "Artisan Safari with Tea & Snacks", description: "A guided journey connecting guests with selected local craftspeople and regional making traditions, accompanied by tea and snacks.", pricingType: "per_jeep", price: 3500 },
     { id: "farm-visit", title: "Farm Visit with Breakfast or High Tea", description: "Visit a working rural farm and pair the experience with breakfast or high tea, subject to the selected timing and availability.", pricingType: "per_jeep", price: 3500 },

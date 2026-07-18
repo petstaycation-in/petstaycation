@@ -36,18 +36,18 @@ export async function generateMetadata({
   const isRedStoneFort = stay.id === 2;
   const isMaru = stay.id === 1;
   const title = isMaru
-    ? "Marubhoomi Pushkar | Pet-Friendly Private Pool Farmstay"
+    ? "Maru Retreat | Pet-Friendly Private Pool Farmstay"
     : isRedStoneFort
     ? "The Red Stone Fort | Pet-Friendly Heritage Stay near Jodhpur"
     : isOrganicOrchard
-    ? "Organic Orchard Retreat Pilani | Luxury Pet-Friendly Farm Stay"
+    ? "Organic Orchard Retreat | Luxury Pet-Friendly Farm Stay"
     : `${stay.title} | Pet Staycation`;
   const description = isMaru
-    ? "Stay with your pet at Marubhoomi near Pushkar, featuring two private plunge-pool villas, farm dining, open rural spaces and authentic Rajasthan experiences."
+    ? "A private pet-friendly countryside retreat with plunge-pool villas, farm dining, open spaces and curated Rajasthan experiences."
     : isRedStoneFort
-    ? "Stay with your pet at The Red Stone Fort, an intimate four-room heritage homestay in Dhundhara near Jodhpur with gardens, a swimming pool, fresh dining and rural experiences."
+    ? "Stay with your pet at an intimate four-room heritage homestay in the Jodhpur countryside with gardens, a swimming pool, fresh dining and rural experiences."
     : isOrganicOrchard
-    ? "Stay at Organic Orchard Retreat, a luxury pet-friendly organic farm stay in Pilani with orchards, farm-to-table meals, horse riding and family experiences."
+    ? "Stay at Organic Orchard Retreat, a private pet-friendly organic farm stay with orchards, farm-to-table meals, horse riding and family experiences."
     : stay.description;
 
   return {
@@ -123,7 +123,6 @@ export default async function StayDetailPage({
       description: stay.description,
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Pilani",
         addressRegion: "Rajasthan",
         addressCountry: "IN",
       },
@@ -164,7 +163,6 @@ export default async function StayDetailPage({
       image: redStoneFort.images.map((image) => `https://petstaycation.in${image.src}`),
       description: stay.description,
       address: { "@type": "PostalAddress", ...redStoneFort.address },
-      geo: { "@type": "GeoCoordinates", ...redStoneFort.coordinates },
       petsAllowed: true,
       checkinTime: redStoneFort.commercial.checkIn,
       checkoutTime: redStoneFort.commercial.checkOut,

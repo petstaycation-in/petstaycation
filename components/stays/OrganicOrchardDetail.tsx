@@ -40,7 +40,7 @@ const animals = [
 const activities = ["Horse riding", "Camel ride", "Nature walks", "Farm walks", "Bird watching", "Photography", "Village tour", "Cycling", "Kids’ activities", "Organic farming", "Animal feeding", "Stargazing", "Sunrise walks", "Sunset walks", "Digital detox", "Family picnic", "Outdoor games"];
 const audiences = ["Families", "Couples", "Pet parents", "Nature lovers", "Photographers", "Weekend travellers", "Corporate retreats", "BITS visitors", "CEERI visitors", "Children", "International guests", "Slow travellers"];
 const amenities = ["Wi-Fi", "Free parking", "Air-conditioned rooms", "Private bathroom", "Garden", "Terrace", "Workspace", "Pet friendly", "Family rooms", "Organic farm", "Horse riding", "Nature walks", "Outdoor seating", "Farm tours"];
-const nearby = ["BITS Pilani", "CEERI Pilani", "Pilani town", "Local markets", "Village experiences", "Nearby temples", "Countryside roads"];
+const nearby = ["Regional town", "Local markets", "Village experiences", "Nearby temples", "Countryside roads"];
 const faqs = [
   ["Is Organic Orchard Retreat pet friendly?", "Yes. Pets are welcomed, with generous outdoor walking areas and natural surroundings. Guests are asked to supervise pets around farm animals and shared spaces."],
   ["Can children stay?", "Absolutely. The retreat is well suited to families, with outdoor discovery, farm experiences and space for children to reconnect with nature."],
@@ -57,7 +57,7 @@ const image = {
   hero: "/images/stays/organic-orchard-retreat/hero.png",
   orchard: "/images/stays/organic-orchard-retreat/orchards.png",
   room: "/images/stays/organic-orchard-retreat/room.png",
-  pet: "/images/stays/organic-orchard-retreat/pet-friendly.png",
+  pet: "/images/stays/organic-orchard-retreat/dogs-playing-farmstay.png",
 };
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -80,9 +80,9 @@ export default function OrganicOrchardDetail({ property }: { property: Property 
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,34,25,.9)_0%,rgba(12,34,25,.54)_52%,rgba(12,34,25,.12)_100%)]" />
         <div className="relative mx-auto flex min-h-[760px] max-w-7xl items-end px-5 pb-16 pt-28 sm:min-h-[820px] sm:px-8 sm:pb-24 lg:px-10">
           <div className="min-w-0 w-full max-w-[calc(100vw-2.5rem)] animate-[fadeIn_.7s_ease-out] sm:max-w-3xl">
-            <p className="mb-6 max-w-[18rem] text-[10px] font-semibold uppercase leading-5 tracking-[.22em] text-[#efd99f] sm:max-w-none sm:text-xs sm:tracking-[.32em]">A working organic farm in Pilani, Rajasthan</p>
+            <p className="mb-6 max-w-[22rem] text-[10px] font-semibold uppercase leading-5 tracking-[.22em] text-[#efd99f] sm:max-w-none sm:text-xs sm:tracking-[.32em]">A private working organic farm in Rajasthan</p>
             <h1 className="font-['Libre_Baskerville'] text-[2.65rem] leading-[1.02] text-white sm:text-6xl lg:text-7xl"><span className="block sm:inline">Organic</span><span className="block sm:inline"> Orchard</span><span className="block">Retreat</span></h1>
-            <p className="mt-5 text-xl font-light text-white/90 sm:text-2xl">Luxury Organic Farm Stay in Pilani</p>
+            <p className="mt-5 text-xl font-light text-white/90 sm:text-2xl">A private organic farm stay</p>
             <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-white/90"><span>★ {property.rating.toFixed(1)}</span><span>{property.location}</span><span>Up to {property.guestCount} guests</span></div>
             <div className="mt-6 grid w-[calc(100vw-2.5rem)] max-w-[22rem] grid-cols-2 gap-2 sm:flex sm:w-full sm:max-w-md sm:flex-wrap">{quickHighlights.map((item) => <span key={item} className="rounded-full border border-white/25 bg-white/10 px-3 py-2 text-center text-[11px] font-medium text-white backdrop-blur-md sm:px-4 sm:text-xs">{item}</span>)}</div>
             <div className="mt-9 grid w-[calc(100vw-2.5rem)] max-w-[22rem] grid-cols-2 gap-3 sm:flex sm:w-full sm:max-w-none sm:flex-wrap"><CTA>Book your stay</CTA><CTA secondary>Check availability</CTA></div>
