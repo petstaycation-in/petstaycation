@@ -1,0 +1,41 @@
+
+> petstaycation@0.1.0 build
+> next build
+
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.8s
+  Running TypeScript ...
+  Finished TypeScript in 4.4s ...
+  Collecting page data using 11 workers ...
+  Generating static pages using 11 workers (0/17) ...
+  Generating static pages using 11 workers (4/17) 
+  Generating static pages using 11 workers (8/17) 
+  Generating static pages using 11 workers (12/17) 
+✓ Generating static pages using 11 workers (17/17) in 1313ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /admin
+├ ○ /blog
+├ ○ /contact
+├ ○ /destinations
+├ ● /destinations/[slug]
+│ ├ /destinations/pushkar
+│ ├ /destinations/jodhpur
+│ └ /destinations/pilani
+├ ○ /list-property
+├ ○ /stays
+└ ● /stays/[id]
+  ├ /stays/1
+  ├ /stays/2
+  └ /stays/3
+
+
+○  (Static)  prerendered as static content
+●  (SSG)     prerendered as static HTML (uses generateStaticParams)
+
