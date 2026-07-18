@@ -20,6 +20,7 @@ interface Property {
   amenities: string[];
   imageUrl: string;
   description: string;
+  priorityScore?: number;
 }
 
 interface StaysContentProps {
@@ -35,7 +36,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
   const [petSize, setPetSize] = useState("All");
   const [bedroomCount, setBedroomCount] = useState(0);
   const [bathroomCount, setBathroomCount] = useState(0);
-  const [sortBy, setSortBy] = useState("priceLowToHigh");
+  const [sortBy, setSortBy] = useState("recommended");
   const [showFilters, setShowFilters] = useState(false);
 
   const activeFilterCount = useMemo(() => {
@@ -48,7 +49,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
     if (petSize !== "All") count += 1;
     if (bedroomCount > 0) count += 1;
     if (bathroomCount > 0) count += 1;
-    if (sortBy !== "priceLowToHigh") count += 1;
+    if (sortBy !== "recommended") count += 1;
     return count;
   }, [bathroomCount, bedroomCount, guestCapacity, petSize, priceMax, priceMin, propertyType, searchQuery, sortBy]);
 
@@ -96,7 +97,9 @@ export default function StaysContent({ properties }: StaysContentProps) {
     })
     // Sort properties
     .sort((a, b) => {
-      if (sortBy === "priceLowToHigh") {
+      if (sortBy === "recommended") {
+        return (b.priorityScore ?? 0) - (a.priorityScore ?? 0);
+      } else if (sortBy === "priceLowToHigh") {
         return a.pricePerNight - b.pricePerNight;
       } else if (sortBy === "priceHighToLow") {
         return b.pricePerNight - a.pricePerNight;
@@ -237,7 +240,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
                       <p className="mt-1 text-sm text-slate-600">{property.location}</p>
                     </div>
                     <span className="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700">
-                      ₹{property.pricePerNight}/night
+                      {property.pricePerNight > 0 ? `₹${property.pricePerNight}/night` : "Tariff on request"}
                     </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between text-sm text-slate-600">

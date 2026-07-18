@@ -60,6 +60,7 @@ export default function StaysFilter({
 
   // Sort options
   const sortOptions = [
+    { value: "recommended", label: "Recommended" },
     { value: "priceLowToHigh", label: "Price Low to High" },
     { value: "priceHighToLow", label: "Price High to Low" },
     { value: "ratingHighToLow", label: "Highest Rated" },
@@ -225,7 +226,7 @@ export default function StaysFilter({
                 setPetSize("All");
                 setBedroomCount(0);
                 setBathroomCount(0);
-                setSortBy("priceLowToHigh");
+                setSortBy("recommended");
               }}
               className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
             >
