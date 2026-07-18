@@ -81,6 +81,7 @@ export const redStoneFort = {
     { src: "/images/stays/red-stone-fort/gardens/red-stone-fort-morning-tea.webp", source: "IMG_9092.JPG", category: "Gardens", alt: "Morning tea arranged at a table in the garden." },
     { src: "/images/stays/red-stone-fort/gardens/red-stone-fort-garden-view.webp", source: "IMG_9086.JPG", category: "Gardens", alt: "Landscaped garden facing the red-sandstone residence." },
     { src: "/images/stays/red-stone-fort/experiences/red-stone-fort-hosted-welcome.webp", source: "IMG_9034.JPG", category: "Rural Experiences", alt: "Traditional flower-garland welcome at the carved entrance." },
+    { src: "/images/stays/red-stone-fort/gardens/dogs-playing-lawn.png", source: "original Petstaycation image", category: "Pet Play", alt: "Two dogs playing on the lawn beside a heritage red-stone residence." },
   ],
   faqs: [
     ["Is The Red Stone Fort pet friendly?", "Yes. The owner has confirmed that pets are welcome. Detailed conditions are confirmed during reservation according to the pets travelling."],

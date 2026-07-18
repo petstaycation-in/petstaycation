@@ -158,10 +158,10 @@ gallery: [
     imageUrl: "/images/stays/organic-orchard-retreat/hero.png",
 
 gallery: [
-  "/images/stays/organic-orchard-retreat/hero.png",
+  "/images/stays/organic-orchard-retreat/genuine-cottage.jpg",
   "/images/stays/organic-orchard-retreat/orchards.png",
-  "/images/stays/organic-orchard-retreat/room.png",
-  "/images/stays/organic-orchard-retreat/pet-friendly.png",
+  "/images/stays/organic-orchard-retreat/genuine-bedroom.jpg",
+  "/images/stays/organic-orchard-retreat/genuine-bathroom.jpg",
 ],
     description:
       "A considered countryside escape set within a working organic farm, where orchards, indigenous animals and seasonal produce shape a slower rhythm of stay. Designed for families, couples and pet parents seeking fresh air, thoughtful comfort and meaningful time outdoors.",

@@ -34,13 +34,13 @@ export const maruRetreat = {
     ["Sacred Paths of Pushkar", "A considered visit to the lake, ghats, Brahma Temple, sacred lanes and market."],
   ] as const,
   images: [
-    { src: "/images/stays/maru-retreat-farmstay/hero.png", source: "hero.png", category: "The retreat", alt: "Earth-finished private farmstay villa surrounded by green countryside." },
+    { src: "/images/stays/maru-retreat-farmstay/pet-playing-hero.png", source: "original Petstaycation hero", category: "Pet-friendly retreat", alt: "Two dogs playing together beside a private countryside farmstay." },
     { src: "/images/stays/maru-retreat-farmstay/gallery-1.png", source: "owned property photo", category: "Bedroom", alt: "Private villa bedroom with a king-size stone bed and colourful handworked textiles." },
     { src: "/images/stays/maru-retreat-farmstay/gallery-2.png", source: "owned property photo", category: "Bedroom", alt: "Earth-finished private bedroom with a stone bed, wall niches and natural textures." },
     { src: "/images/stays/maru-retreat-farmstay/gallery-3.png", source: "gallery-3.png", category: "Private Pool", alt: "Private plunge pool beside a shaded veranda overlooking open farmland." },
     { src: "/images/stays/maru-retreat-farmstay/gallery-4.png", source: "gallery-4.png", category: "Interiors", alt: "Hand-finished villa sitting room with woven chairs and illuminated wall niches." },
     { src: "/images/stays/maru-retreat-farmstay/gallery-5.png", source: "gallery-5.png", category: "Interiors", alt: "Window daybed framed by traditional textiles inside a private villa." },
-    { src: "/images/stays/maru-retreat-farmstay/dogs-playing-farmstay.png", source: "original Petstaycation image", category: "Pet play", alt: "Two dogs playing fetch on the open lawn at a rustic farmstay." },
+    { src: "/images/stays/maru-retreat-farmstay/hero.png", source: "owned property photo", category: "The retreat", alt: "Earth-finished private farmstay villa surrounded by green countryside." },
   ] satisfies MaruImage[],
   faqs: [
     ["Is Maru Retreat pet-friendly?", "Yes. Companion animals are welcome. Share each pet’s type, breed, size and needs when enquiring so the stay can be prepared thoughtfully."],
