@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { GoogleTagManager } from "@next/third-parties/google";
 
@@ -78,6 +79,8 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <Analytics />
 
       </body>
 
