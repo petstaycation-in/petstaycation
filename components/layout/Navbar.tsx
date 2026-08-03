@@ -62,7 +62,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/* Brand Logo */}
-            <div className="flex items-center space-x-3">
+            <div className="min-w-0 flex items-center space-x-2 sm:space-x-3">
               <Link href="/" className="flex items-center">
                 <Image
                   src="/pstlogo.png"
@@ -74,12 +74,12 @@ export default function Navbar() {
                   className="transition-transform duration-300 group-hover:scale-105"
                 />
               </Link>
-              <div className="space-y-1">
-                <h1 className="text-2xl font-bold tracking-tighter">
+              <div className="min-w-0 space-y-1">
+                <p className="whitespace-nowrap text-xl font-bold tracking-tighter sm:text-2xl">
                   <span className="text-secondary">Pet</span>{" "}
                   <span className="text-accent">Staycation</span>
-                </h1>
-                <p className="text-xs text-muted tracking-wider">
+                </p>
+                <p className="hidden text-xs text-muted tracking-wider min-[360px]:block">
                   Premium Pet-Friendly Stays
                 </p>
               </div>
@@ -170,18 +170,11 @@ export default function Navbar() {
                 >
                   List Your Property
                 </Link>
-                <Link
-                  href="/admin"
-                  className="flex items-center px-5 py-2.5 rounded-xl border border-border/30 text-muted hover:text-primary hover:bg-primary/10 transition-all duration-200"
-                  aria-label="Admin dashboard"
-                >
-                  Admin
-                </Link>
               </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="flex items-center md:hidden">
+            <div className="ml-2 flex shrink-0 items-center md:hidden">
               <button
                 onClick={toggleMenu}
                 className="p-3 rounded-xl bg-surface/80 hover:bg-surface/70 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20"

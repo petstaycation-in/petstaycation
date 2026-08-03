@@ -5,6 +5,9 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
 import PropertyCard from "@/components/ui/PropertyCard";
 import Button from "@/components/ui/Button";
+import { notFound } from "next/navigation";
+
+export const dynamicParams = false;
 
 export const generateStaticParams = async () => {
   return destinations.map((dest) => ({
@@ -56,26 +59,20 @@ export async function generateMetadata({
   };
 }
 
-export default function DestinationPage({
+export default async function DestinationPage({
   params,
 }: {
-  params: { slug: string } | { slug: undefined };
+  params: Promise<{ slug: string }>;
 }) {
   // Convert slug back to name for matching (simple conversion)
-  const slug = params?.slug ?? "";
+  const { slug } = await params;
   const slugName = slug.replace(/-/g, " ");
   const destination = destinations.find(
     (d) => d.name.toLowerCase() === slugName.toLowerCase()
   );
 
   if (!destination) {
-    // TODO: 404 page
-    return (
-      <Container>
-        <SectionHeading title="Destination Not Found" />
-        <p>We couldn&apos;t find the destination you&apos;re looking for.</p>
-      </Container>
-    );
+    notFound();
   }
 
   // Filter properties for this destination (location contains destination name)

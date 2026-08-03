@@ -35,7 +35,6 @@ export default function StayDetail({ property }: StayDetailProps) {
   const galleryImages: string[] = property.gallery ?? [];
   const images: string[] = galleryImages.length > 0 ? galleryImages : [property.imageUrl];
   const heroImage = images[0];
-  const galleryCards = images.slice(1, 5);
   const highlights = property.highlights ?? [];
   const amenities = property.amenities ?? [];
   const nearby = property.nearbyAttractions ?? [];
@@ -109,9 +108,9 @@ export default function StayDetail({ property }: StayDetailProps) {
 </div>
 
 
-<button className="mt-5 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90">
-  Reserve your stay
-</button>
+<a href={`https://wa.me/919649088717?text=${encodeURIComponent(`Hello, I would like to check availability for ${property.title}.`)}`} target="_blank" rel="noreferrer" className="mt-5 flex w-full items-center justify-center rounded-full bg-primary px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90">
+  Check availability on WhatsApp
+</a>
 
 
 <p className="mt-3 text-center text-xs text-slate-500">

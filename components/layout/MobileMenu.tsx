@@ -203,17 +203,6 @@ export default function MobileMenu({ onClose }: MobileMenuProps) {
             >
               List Your Property
             </Link>
-            <Link
-              href="/admin"
-              className={`
-                flex items-center justify-center px-5 py-3.5 rounded-xl border border-primary/20 text-primary
-                font-medium text-lg hover:bg-primary/10 transition-all duration-200
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20
-              `}
-              aria-label="Admin dashboard"
-            >
-              Admin
-            </Link>
           </div>
         </div>
       </div>

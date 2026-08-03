@@ -1,6 +1,32 @@
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
+import { redirect } from "next/navigation";
+import { deliverLead } from "@/lib/lead-delivery";
+
+async function sendContact(formData: FormData) {
+  "use server";
+  const value = (name: string) => String(formData.get(name) ?? "").trim();
+  const name = value("name");
+  const email = value("email");
+  const subject = value("subject");
+  const message = value("message");
+  const consent = formData.get("privacyConsent") === "yes";
+  const website = value("website");
+  if (website) redirect("/contact?sent=true");
+  if (!name || !email || !subject || !message || !consent || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    redirect("/contact?error=invalid#contact-form");
+  }
+  try {
+    await deliverLead({ type: "contact", name, email, subject, details: { message }, privacyConsent: true });
+  } catch (error) {
+    // WhatsApp is the primary completion step for this form. A temporary CRM
+    // outage must not strand the visitor on an error page.
+    console.error("Contact lead delivery failed", error instanceof Error ? error.message : "Unknown error");
+  }
+  const text = encodeURIComponent(`Pet Staycation contact enquiry\n\nName: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`);
+  redirect(`https://wa.me/919649088717?text=${text}`);
+}
 
 export const metadata = {
   title: "Contact Pet Staycation - Get in Touch",
@@ -128,7 +154,8 @@ export default function ContactPage() {
 
       <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr]">
         <div id="contact-form" className="rounded-[1.75rem] border border-slate-200/80 bg-white p-6 shadow-[0_20px_60px_-35px_rgba(21,29,40,0.35)] sm:p-8">
-          <form className="space-y-6">
+          <form action={sendContact} className="space-y-6">
+            <label className="absolute -left-[10000px]" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
             <div>
               <label
                 htmlFor="name"
@@ -197,12 +224,17 @@ export default function ContactPage() {
               />
             </div>
 
+            <label className="flex items-start gap-3 text-sm leading-6 text-slate-600">
+              <input type="checkbox" name="privacyConsent" value="yes" required className="mt-1 h-4 w-4 shrink-0 accent-primary" />
+              <span>I agree that Pet Staycation may use my details to respond to this enquiry and manage it through its email, CRM, database and messaging providers, as described in the <a className="font-semibold text-primary underline" href="/privacy">Privacy Policy</a>.</span>
+            </label>
             <button
               type="submit"
-              className="w-full px-6 py-3 bg-bg-primary text-white hover:bg-bg-primary/90 focus:ring-2 focus:ring-bg-primary/30 disabled:opacity-50"
+              className="w-full rounded-md bg-primary px-6 py-3 font-semibold text-white transition hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
             >
-              Send Message
+              Continue to WhatsApp
             </button>
+            <p className="text-center text-xs text-slate-500">Your message is only sent after you confirm it in WhatsApp.</p>
           </form>
         </div>
 
@@ -238,9 +270,9 @@ export default function ContactPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Connect</p>
             <h3 className="mt-2 text-xl font-semibold text-slate-900">Direct contact</h3>
             <div className="mt-4 space-y-3 text-sm text-slate-600">
-              <p><span className="font-semibold text-slate-800">Phone:</span> +91 96490 88717</p>
-              <p><span className="font-semibold text-slate-800">Email:</span> petstaycationindia@gmail.com</p>
-              <p><span className="font-semibold text-slate-800">Emergency (Pet Care):</span> +91 77428 94249</p>
+              <p><span className="font-semibold text-slate-800">Phone:</span> <a className="underline-offset-4 hover:underline" href="tel:+919649088717">+91 96490 88717</a></p>
+              <p><span className="font-semibold text-slate-800">Email:</span> <a className="underline-offset-4 hover:underline" href="mailto:petstaycationindia@gmail.com">petstaycationindia@gmail.com</a></p>
+              <p><span className="font-semibold text-slate-800">Emergency (Pet Care):</span> <a className="underline-offset-4 hover:underline" href="tel:+917742894249">+91 77428 94249</a></p>
             </div>
             <div className="mt-5 rounded-[1rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
               “We help pet parents find calm, comfortable stays that feel like a proper holiday.”

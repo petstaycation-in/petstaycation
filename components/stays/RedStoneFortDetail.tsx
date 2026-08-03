@@ -17,12 +17,12 @@ function Heading({ children, light = false }: { children: React.ReactNode; light
 
 export default function RedStoneFortDetail() {
   return (
-    <article className="w-full max-w-[390px] overflow-x-hidden bg-[#f4eee5] text-[#4b3c34] sm:max-w-none">
+    <article className="w-full overflow-x-clip bg-[#f4eee5] pb-24 text-[#4b3c34] lg:pb-0">
       <section className="relative min-h-[760px] overflow-hidden sm:min-h-[820px]">
         <Image src={hero.src} alt={hero.alt} fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(35,20,15,.9)_0%,rgba(35,20,15,.62)_46%,rgba(35,20,15,.15)_100%)]" />
         <div className="relative mx-auto flex min-h-[760px] max-w-7xl items-end px-5 pb-16 pt-28 sm:min-h-[820px] sm:px-8 sm:pb-24 lg:px-10">
-          <div className="w-full max-w-3xl animate-[fadeIn_.7s_ease-out]">
+          <div className="min-w-0 w-full max-w-3xl animate-[fadeIn_.7s_ease-out]">
             <p className="text-[10px] font-semibold uppercase tracking-[.25em] text-[#edc99d] sm:text-xs">Jodhpur countryside · Rajasthan</p>
             <h1 className="mt-6 font-['Libre_Baskerville'] text-[2.8rem] leading-[1.03] text-white sm:text-6xl lg:text-7xl"><span className="block sm:inline">The Red</span><span className="block sm:inline"> Stone Fort</span></h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/82 sm:text-xl">An intimate pet-friendly heritage homestay shaped by red sandstone, rural landscapes and personal hospitality.</p>

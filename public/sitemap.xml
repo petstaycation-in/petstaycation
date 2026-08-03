@@ -55,19 +55,13 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://petstaycation.in/destinations/jaipur</loc>
+    <loc>https://petstaycation.in/destinations/pushkar</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://petstaycation.in/destinations/udaipur</loc>
-    <lastmod>2026-06-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://petstaycation.in/destinations/jaisalmer</loc>
+    <loc>https://petstaycation.in/destinations/pilani</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -84,4 +78,8 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url><loc>https://petstaycation.in/privacy</loc><lastmod>2026-07-18</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://petstaycation.in/terms</loc><lastmod>2026-07-18</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://petstaycation.in/cancellation-policy</loc><lastmod>2026-07-18</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://petstaycation.in/pet-policy</loc><lastmod>2026-07-18</lastmod><changefreq>yearly</changefreq><priority>0.4</priority></url>
 </urlset>

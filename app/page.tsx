@@ -39,11 +39,11 @@ export default function Home() {
       <Container>
         <section className="relative overflow-hidden rounded-[2rem] border border-[#e9dccb] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.98),_rgba(248,239,227,0.9))] px-6 py-12 shadow-[0_30px_90px_-35px_rgba(99,74,34,0.45)] sm:px-8 lg:px-12 lg:py-16">
 
-  <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+  <div className="grid min-w-0 gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
 
-    <div className="max-w-2xl">
+    <div className="min-w-0 max-w-2xl">
 
-      <div className="mb-5 inline-flex rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-primary backdrop-blur">
+      <div className="mb-5 inline-flex max-w-full rounded-full border border-primary/20 bg-white/80 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary backdrop-blur sm:text-[11px] sm:tracking-[0.3em]">
         India`&apos; premium pet travel platform
       </div>
 
@@ -114,11 +114,12 @@ export default function Home() {
       <div className="relative overflow-hidden rounded-[2rem] border border-white/70 bg-white p-3 shadow-[0_30px_80px_-35px_rgba(99,74,34,0.45)]">
 
         <Image
-          src="/pstlogo.png"
-          alt="Pet Staycation luxury pet travel"
-          width={900}
-          height={900}
+          src="/images/home-maru-pool-hero.png"
+          alt="A couple and their dog relaxing beside the pool at Maru Retreat"
+          width={1456}
+          height={1086}
           priority
+          sizes="(min-width: 1024px) 42vw, 100vw"
           className="h-[380px] w-full rounded-[1.5rem] object-cover sm:h-[480px]"
         />
 

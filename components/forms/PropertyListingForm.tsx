@@ -36,6 +36,11 @@ export default function PropertyListingForm() {
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [success, setSuccess] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [startedAt] = useState(() => Date.now());
+  const [website, setWebsite] = useState("");
 
   const validate = (): boolean => {
     const newErrors: Partial<FormData> = {};
@@ -65,27 +70,29 @@ export default function PropertyListingForm() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      // Store in localStorage
-      const submissions = JSON.parse(localStorage.getItem("propertyListings") || "[]");
-      submissions.push({
-        ...form,
-        timestamp: new Date().toISOString()
-      });
-      localStorage.setItem("propertyListings", JSON.stringify(submissions));
-
+    if (validate() && consent) {
+      setSubmitting(true);
+      setSubmitError("");
+      const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "property-listing", name: form.ownerName, email: form.email, phone: form.mobileNumber, subject: `Property listing: ${form.propertyName}`, details: form, privacyConsent: consent, website, startedAt }) });
+      if (!response.ok) {
+        const result = await response.json().catch(() => null) as { error?: string } | null;
+        setSubmitError(result?.error || "We could not save your listing. Please try again.");
+        setSubmitting(false);
+        return;
+      }
       // Build WhatsApp message
       const message = encodeURIComponent(
-        `New Property Listing Submission%Property Name: ${form.propertyName}%Owner Name: ${form.ownerName}%Mobile: ${form.mobileNumber}%WhatsApp: ${form.whatsappNumber}%Email: ${form.email}%City: ${form.city}%State: ${form.state}%Property Type: ${form.propertyType}%Rooms: ${form.numRooms}%Price Per Night: ₹${form.pricePerNight}%Pet Policy: ${form.petPolicy}%Description: ${form.description}`
+        `New property listing enquiry\n\nProperty: ${form.propertyName}\nOwner: ${form.ownerName}\nMobile: ${form.mobileNumber}\nWhatsApp: ${form.whatsappNumber}\nEmail: ${form.email}\nLocation: ${form.city}, ${form.state}\nType: ${form.propertyType}\nRooms: ${form.numRooms}\nPrice per night: ₹${form.pricePerNight}\nPet policy: ${form.petPolicy}\nDescription: ${form.description}`
       );
 
       // Open WhatsApp in new tab
-      window.open(`https://wa.me/919999999999?text=${message}`, '_blank');
+      window.open(`https://wa.me/919649088717?text=${message}`, "_blank", "noopener,noreferrer");
 
       // Show success message
       setSuccess(true);
+      setSubmitting(false);
       // Reset form after a short delay
       setTimeout(() => {
         setForm({
@@ -112,10 +119,11 @@ export default function PropertyListingForm() {
       <div className="p-6">
         {success ? (
           <div className="mb-4 p-4 bg-forest-green/10 text-forest-green rounded">
-            Thank you! Your property has been listed for review. We will get back to you shortly.
+            Your listing enquiry is ready in WhatsApp. Send the message there to complete it.
           </div>
         ) : null}
         <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="absolute -left-[10000px]" aria-hidden="true">Website<input value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></label>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -360,14 +368,16 @@ export default function PropertyListingForm() {
             )}
           </div>
 
+          <label className="flex items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1 h-4 w-4 accent-primary" /><span>I agree to the <a href="/privacy" className="font-semibold text-primary underline">Privacy Policy</a> and allow my listing enquiry to be stored and sent through email, Google Sheets and WhatsApp.</span></label>
+          {submitError && <p role="alert" className="text-sm text-red-700">{submitError}</p>}
           <div className="flex flex-col md:flex-row md:space-x-4 justify-center">
             <Button
               type="submit"
               variant="primary"
               className="w-full md:w-auto"
-              disabled={Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0 || submitting || !consent}
             >
-              Submit Property Listing
+              {submitting ? "Saving enquiry…" : "Submit Property Listing"}
             </Button>
           </div>
         </form>

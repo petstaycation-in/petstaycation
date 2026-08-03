@@ -8,6 +8,8 @@ import { redStoneFort } from "@/data/redStoneFort";
 import { maruRetreat } from "@/data/maruRetreat";
 import type { Metadata } from "next";
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return properties.map((p) => ({
     id: String(p.id),

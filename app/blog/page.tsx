@@ -61,12 +61,7 @@ export default function BlogPage() {
               Learn how to make your pet&apos;s journey comfortable and enjoyable
               while exploring the magnificent forts and palaces of Rajasthan.
             </p>
-            <a
-              href="#"
-              className="inline-block text-sm font-medium text-forest-green hover:text-forest-green/80"
-            >
-              Read More →
-            </a>
+            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
           </div>
         </div>
 
@@ -91,12 +86,7 @@ export default function BlogPage() {
               Discover palatial accommodations that welcome both you and your
               furry family members with royal treatment.
             </p>
-            <a
-              href="#"
-              className="inline-block text-sm font-medium text-bg-primary hover:text-bg-primary/80"
-            >
-              Read More →
-            </a>
+            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
           </div>
         </div>
 
@@ -121,12 +111,7 @@ export default function BlogPage() {
               Experience holistic wellness programs designed specifically for
               pets and their owners amidst the serene lakes of Udaipur.
             </p>
-            <a
-              href="#"
-              className="inline-block text-sm font-medium text-bg-primary hover:text-bg-primary/80"
-            >
-              Read More →
-            </a>
+            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
           </div>
         </div>
 
@@ -151,12 +136,7 @@ export default function BlogPage() {
               Experience the magic of the Thar Desert with your pet by your
               side - from camel rides to starlit dinners.
             </p>
-            <a
-              href="#"
-              className="inline-block text-sm font-medium text-bg-primary hover:text-bg-primary/80"
-            >
-              Read More →
-            </a>
+            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
           </div>
         </div>
       </div>

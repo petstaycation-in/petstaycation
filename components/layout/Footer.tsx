@@ -60,32 +60,18 @@ export default function Footer() {
                   Contact Us
                 </Link>
               </li>
+              <li><Link href="/privacy" className="hover:text-surface transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-surface transition-colors">Terms of Use</Link></li>
+              <li><Link href="/cancellation-policy" className="hover:text-surface transition-colors">Cancellation Policy</Link></li>
+              <li><Link href="/pet-policy" className="hover:text-surface transition-colors">Pet Policy</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="mb-3 text-lg font-semibold text-white">Follow</h4>
-            <div className="flex space-x-4">
-              <a
-                href="#"
-                className="hover:text-surface/80 transition-colors"
-                aria-label="Instagram"
-              >
-                Instagram
-              </a>
-              <a
-                href="#"
-                className="hover:text-surface/80 transition-colors"
-                aria-label="Facebook"
-              >
-                Facebook
-              </a>
-              <a
-                href="#"
-                className="hover:text-surface/80 transition-colors"
-                aria-label="Twitter"
-              >
-                Twitter
-              </a>
+            <h4 className="mb-3 text-lg font-semibold text-white">Contact</h4>
+            <div className="flex flex-col gap-2">
+              <a href="tel:+919649088717" className="hover:text-surface/80 transition-colors">+91 96490 88717</a>
+              <a href="mailto:petstaycationindia@gmail.com" className="break-all hover:text-surface/80 transition-colors">petstaycationindia@gmail.com</a>
+              <a href="https://www.instagram.com/petstaycation.in" target="_blank" rel="noreferrer" className="hover:text-surface/80 transition-colors">Instagram</a>
             </div>
           </div>
         </div>

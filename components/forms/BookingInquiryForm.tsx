@@ -40,6 +40,11 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
 
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [success, setSuccess] = useState(false);
+  const [consent, setConsent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [startedAt] = useState(() => Date.now());
+  const [website, setWebsite] = useState("");
 
   const validate = (): boolean => {
     const newErrors: Partial<FormData> = {};
@@ -52,7 +57,9 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
       newErrors.email = "Enter a valid email";
     if (!form.city.trim()) newErrors.city = "Required";
     if (!form.checkInDate) newErrors.checkInDate = "Required";
+    else if (form.checkInDate < new Date().toISOString().slice(0, 10)) newErrors.checkInDate = "Choose today or a future date";
     if (!form.checkOutDate) newErrors.checkOutDate = "Required";
+    else if (form.checkInDate && form.checkOutDate <= form.checkInDate) newErrors.checkOutDate = "Check-out must be after check-in";
     if (!form.adults.trim()) newErrors.adults = "Required";
     else if (parseInt(form.adults, 10) <= 0)
       newErrors.adults = "Must be at least 1";
@@ -69,28 +76,34 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      // Store in localStorage
-      const submissions = JSON.parse(localStorage.getItem("bookingInquiries") || "[]");
-      submissions.push({
-        ...form,
-        timestamp: new Date().toISOString(),
-        stayTitle: stayTitle
-      });
-      localStorage.setItem("bookingInquiries", JSON.stringify(submissions));
-
+    if (validate() && consent) {
+      setSubmitting(true);
+      setSubmitError("");
+      const rawMessage = `Pet Staycation booking enquiry\n\nProperty: ${stayTitle}\nGuest: ${form.guestName}\nMobile: ${form.mobileNumber}\nEmail: ${form.email}\nCity: ${form.city}\nCheck-in: ${form.checkInDate}\nCheck-out: ${form.checkOutDate}\nAdults: ${form.adults}\nChildren: ${form.children}\nPets: ${form.numPets} ${form.petType}(s), ${form.petSize}\nSpecial requirements: ${form.specialRequirements || "None"}`;
+      try {
+        const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "booking", name: form.guestName, email: form.email, phone: form.mobileNumber, subject: `Booking enquiry: ${stayTitle}`, details: { ...form, stayTitle }, privacyConsent: consent, website, startedAt }) });
+        if (!response.ok) {
+          const result = await response.json().catch(() => null) as { error?: string } | null;
+          setSubmitError(result?.error || "We could not prepare your enquiry. Please try again.");
+          setSubmitting(false);
+          return;
+        }
+      } catch {
+        setSubmitError("We could not connect. Please check your internet connection and try again.");
+        setSubmitting(false);
+        return;
+      }
       // Build WhatsApp message
-      const message = encodeURIComponent(
-        `Pet Staycation Booking Inquiry%nGuest Name: ${form.guestName}%nMobile: ${form.mobileNumber}%nEmail: ${form.email}%nCity: ${form.city}%nPet Type: ${form.petType}%nCheck-in: ${form.checkInDate}%nCheck-out: ${form.checkOutDate}%nGuests: ${parseInt(form.adults, 10) + parseInt(form.children, 10)}%nSpecial Requirements: ${form.specialRequirements}%nProperty Interested In:%n${stayTitle}`
-      );
+      const message = encodeURIComponent(rawMessage);
 
       // Open WhatsApp in new tab
-      window.open(`https://wa.me/919999999999?text=${message}`, '_blank');
+      window.open(`https://wa.me/919649088717?text=${message}`, "_blank", "noopener,noreferrer");
 
       // Show success message
       setSuccess(true);
+      setSubmitting(false);
       // Reset form after a short delay
       setTimeout(() => {
         setForm({
@@ -117,10 +130,11 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
       <div className="p-6">
         {success ? (
           <div className="mb-4 p-4 bg-forest-green/10 text-forest-green rounded">
-            Thank you! Your inquiry has been submitted. We will get back to you shortly.
+            Your enquiry is ready in WhatsApp. Send the message there to complete it.
           </div>
         ) : null}
         <form onSubmit={handleSubmit} className="space-y-4">
+          <label className="absolute -left-[10000px]" aria-hidden="true">Website<input value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></label>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -206,6 +220,7 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
               </label>
               <input
                 type="date"
+                min={new Date().toISOString().slice(0, 10)}
                 value={form.checkInDate}
                 onChange={(e) => setForm({ ...form, checkInDate: e.target.value })}
                 className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
@@ -223,6 +238,7 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
               </label>
               <input
                 type="date"
+                min={form.checkInDate || new Date().toISOString().slice(0, 10)}
                 value={form.checkOutDate}
                 onChange={(e) => setForm({ ...form, checkOutDate: e.target.value })}
                 className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
@@ -356,14 +372,16 @@ export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProp
             </div>
           </div>
 
+          <label className="flex items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1 h-4 w-4 accent-primary" /><span>I agree to the <a href="/privacy" className="font-semibold text-primary underline">Privacy Policy</a> and allow my enquiry to be stored and sent through email, Google Sheets and WhatsApp.</span></label>
+          {submitError && <p role="alert" className="text-sm text-red-700">{submitError}</p>}
           <div className="flex flex-col md:flex-row md:space-x-4 justify-center">
             <Button
               type="submit"
               variant="primary"
               className="w-full md:w-auto"
-              disabled={Object.keys(errors).length > 0}
+              disabled={Object.keys(errors).length > 0 || submitting || !consent}
             >
-              Submit Inquiry
+              {submitting ? "Saving enquiry…" : "Submit Inquiry"}
             </Button>
           </div>
         </form>
