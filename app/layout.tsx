@@ -7,6 +7,7 @@ import {
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,6 +59,7 @@ export default function RootLayout({
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} ${libre.className} h-full antialiased`}
     >
+      <GoogleTagManager gtmId="GTM-WHCVPJS8" />
 
       <body className="min-h-full flex flex-col bg-background">
 
