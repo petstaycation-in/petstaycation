@@ -1,391 +1,59 @@
 "use client";
 
-import React, { useState } from "react";
-import Button from "@/components/ui/Button";
+import { FormEvent, useMemo, useState } from "react";
+import { getProperty, mealPlans, properties } from "@/data/properties";
 
-interface FormData {
-  guestName: string;
-  mobileNumber: string;
-  email: string;
-  city: string;
-  checkInDate: string;
-  checkOutDate: string;
-  adults: string;
-  children: string;
-  petType: string;
-  numPets: string;
-  petSize: string;
-  specialRequirements: string;
-}
+type Props = { stayTitle?: string };
+type State = { property: string; checkIn: string; checkOut: string; adults: string; children: string; pets: string; petType: string; breed: string; bookingUnit: string; mealPlan: string; guestName: string; phone: string; email: string; notes: string };
 
-interface BookingInquiryFormProps {
-  stayTitle: string;
-}
+export default function BookingInquiryForm({ stayTitle = properties[0].title }: Props) {
+  const initialProperty = getProperty(stayTitle) ?? properties[0];
+  const [form, setForm] = useState<State>({ property: initialProperty.title, checkIn: "", checkOut: "", adults: "2", children: "0", pets: "1", petType: "Dog", breed: "", bookingUnit: initialProperty.bookingUnits[0].name, mealPlan: "EP", guestName: "", phone: "", email: "", notes: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [consent, setConsent] = useState(false); const [submitting, setSubmitting] = useState(false); const [success, setSuccess] = useState(false);
+  const [website, setWebsite] = useState(""); const [startedAt] = useState(() => Date.now());
+  const minDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
+  const selected = getProperty(form.property) ?? properties[0];
+  const unit = selected.bookingUnits.find((item) => item.name === form.bookingUnit) ?? selected.bookingUnits[0];
+  const set = (key: keyof State, value: string) => setForm((current) => ({ ...current, [key]: value }));
+  const cls = "mt-2 min-h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-slate-900 outline-none focus:border-primary focus:ring-2 focus:ring-primary/15";
+  const error = (key: string) => errors[key] ? <span role="alert" className="mt-1 block text-xs text-red-700">{errors[key]}</span> : null;
 
-export default function BookingInquiryForm({ stayTitle }: BookingInquiryFormProps) {
-  const [form, setForm] = useState<FormData>({
-    guestName: "",
-    mobileNumber: "",
-    email: "",
-    city: "",
-    checkInDate: "",
-    checkOutDate: "",
-    adults: "",
-    children: "",
-    petType: "",
-    numPets: "",
-    petSize: "",
-    specialRequirements: "",
-  });
+  function changeProperty(value: string) { const property = getProperty(value) ?? properties[0]; setForm((current) => ({ ...current, property: property.title, bookingUnit: property.bookingUnits[0].name, adults: "2", children: "0" })); }
+  async function submit(event: FormEvent) {
+    event.preventDefault(); const next: Record<string, string> = {}; const guests = Number(form.adults) + Number(form.children);
+    if (!form.checkIn || form.checkIn < minDate) next.checkIn = "Choose today or a future date.";
+    if (!form.checkOut || form.checkOut <= form.checkIn) next.checkOut = "Check-out must be after check-in.";
+    if (Number(form.adults) < 1) next.adults = "At least one adult is required.";
+    if (guests > unit.maxGuests) next.adults = `${form.bookingUnit} accommodates up to ${unit.maxGuests} guests.`;
+    if (Number(form.pets) < 0) next.pets = "Number of pets cannot be negative.";
+    if (Number(form.pets) > 0 && (!form.petType || !form.breed.trim())) next.breed = "Add the pet type and breed/type.";
+    if (!form.guestName.trim()) next.guestName = "Enter your name."; if (!form.phone.trim()) next.phone = "Enter your phone number.";
+    if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Enter a valid email."; if (!consent) next.consent = "Privacy consent is required.";
+    setErrors(next); if (Object.keys(next).length) return;
+    const message = ["Petstaycation booking enquiry", `Property: ${form.property}`, `Booking Unit: ${form.bookingUnit}`, `Meal Plan: ${form.mealPlan}`, `Check-in: ${form.checkIn}`, `Check-out: ${form.checkOut}`, `Adults: ${form.adults}`, `Children: ${form.children}`, `Pets: ${form.pets}`, `Pet type: ${form.petType || "None"}`, `Breed/type: ${form.breed || "None"}`, `Guest: ${form.guestName}`, `Phone: ${form.phone}`, `Email: ${form.email}`, `Notes: ${form.notes || "None"}`].join("\n");
+    setSubmitting(true); setSuccess(false);
+    try { const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "booking", name: form.guestName, email: form.email, phone: form.phone, subject: `Booking enquiry: ${form.property}`, details: { ...form, selectedProperty: form.property, numberOfPets: form.pets, petBreedType: form.breed, specialRequirements: form.notes }, privacyConsent: consent, website, startedAt }) }); if (!response.ok) { const result = await response.json().catch(() => null) as { error?: string } | null; throw new Error(result?.error || "We could not save your enquiry."); }
+      window.dispatchEvent(new CustomEvent("petstaycation:analytics", { detail: { event: "enquiry_form_submit", property: selected.id } })); window.open(`https://wa.me/919649088717?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); setSuccess(true);
+    } catch (caught) { setErrors({ submit: caught instanceof Error ? caught.message : "We could not connect. Please try again." }); } finally { setSubmitting(false); }
+  }
 
-  const [errors, setErrors] = useState<Partial<FormData>>({});
-  const [success, setSuccess] = useState(false);
-  const [consent, setConsent] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [startedAt] = useState(() => Date.now());
-  const [website, setWebsite] = useState("");
-
-  const validate = (): boolean => {
-    const newErrors: Partial<FormData> = {};
-    if (!form.guestName.trim()) newErrors.guestName = "Required";
-    if (!form.mobileNumber.trim()) newErrors.mobileNumber = "Required";
-    else if (!/^\d{10}$/.test(form.mobileNumber.replace(/\s/g, "")))
-      newErrors.mobileNumber = "Enter a valid 10-digit mobile number";
-    if (!form.email.trim()) newErrors.email = "Required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
-      newErrors.email = "Enter a valid email";
-    if (!form.city.trim()) newErrors.city = "Required";
-    if (!form.checkInDate) newErrors.checkInDate = "Required";
-    else if (form.checkInDate < new Date().toISOString().slice(0, 10)) newErrors.checkInDate = "Choose today or a future date";
-    if (!form.checkOutDate) newErrors.checkOutDate = "Required";
-    else if (form.checkInDate && form.checkOutDate <= form.checkInDate) newErrors.checkOutDate = "Check-out must be after check-in";
-    if (!form.adults.trim()) newErrors.adults = "Required";
-    else if (parseInt(form.adults, 10) <= 0)
-      newErrors.adults = "Must be at least 1";
-    if (!form.children.trim()) newErrors.children = "Required";
-    else if (parseInt(form.children, 10) < 0)
-      newErrors.children = "Cannot be negative";
-    if (!form.petType.trim()) newErrors.petType = "Required";
-    if (!form.numPets.trim()) newErrors.numPets = "Required";
-    else if (parseInt(form.numPets, 10) < 0)
-      newErrors.numPets = "Cannot be negative";
-    if (!form.petSize.trim()) newErrors.petSize = "Required";
-    // specialRequirements optional
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validate() && consent) {
-      setSubmitting(true);
-      setSubmitError("");
-      const rawMessage = `Pet Staycation booking enquiry\n\nProperty: ${stayTitle}\nGuest: ${form.guestName}\nMobile: ${form.mobileNumber}\nEmail: ${form.email}\nCity: ${form.city}\nCheck-in: ${form.checkInDate}\nCheck-out: ${form.checkOutDate}\nAdults: ${form.adults}\nChildren: ${form.children}\nPets: ${form.numPets} ${form.petType}(s), ${form.petSize}\nSpecial requirements: ${form.specialRequirements || "None"}`;
-      try {
-        const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "booking", name: form.guestName, email: form.email, phone: form.mobileNumber, subject: `Booking enquiry: ${stayTitle}`, details: { ...form, stayTitle }, privacyConsent: consent, website, startedAt }) });
-        if (!response.ok) {
-          const result = await response.json().catch(() => null) as { error?: string } | null;
-          setSubmitError(result?.error || "We could not prepare your enquiry. Please try again.");
-          setSubmitting(false);
-          return;
-        }
-      } catch {
-        setSubmitError("We could not connect. Please check your internet connection and try again.");
-        setSubmitting(false);
-        return;
-      }
-      // Build WhatsApp message
-      const message = encodeURIComponent(rawMessage);
-
-      // Open WhatsApp in new tab
-      window.open(`https://wa.me/919649088717?text=${message}`, "_blank", "noopener,noreferrer");
-
-      // Show success message
-      setSuccess(true);
-      setSubmitting(false);
-      // Reset form after a short delay
-      setTimeout(() => {
-        setForm({
-          guestName: "",
-          mobileNumber: "",
-          email: "",
-          city: "",
-          checkInDate: "",
-          checkOutDate: "",
-          adults: "",
-          children: "",
-          petType: "",
-          numPets: "",
-          petSize: "",
-          specialRequirements: "",
-        });
-        setSuccess(false);
-      }, 3000);
-    }
-  };
-
-  return (
-    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-lg">
-      <div className="p-6">
-        {success ? (
-          <div className="mb-4 p-4 bg-forest-green/10 text-forest-green rounded">
-            Your enquiry is ready in WhatsApp. Send the message there to complete it.
-          </div>
-        ) : null}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="absolute -left-[10000px]" aria-hidden="true">Website<input value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></label>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Guest Name
-              </label>
-              <input
-                type="text"
-                value={form.guestName}
-                onChange={(e) => setForm({ ...form, guestName: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green ${
-                  errors.guestName ? "border-red-500" : ""
-                }`}
-                placeholder="Enter your full name"
-                required
-              />
-              {errors.guestName && (
-                <p className="mt-1 text-sm text-red-600">{errors.guestName}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Mobile Number
-              </label>
-              <input
-                type="tel"
-                value={form.mobileNumber}
-                onChange={(e) => setForm({ ...form, mobileNumber: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green ${
-                  errors.mobileNumber ? "border-red-500" : ""
-                }`}
-                placeholder="Enter your 10-digit mobile number"
-                required
-              />
-              {errors.mobileNumber && (
-                <p className="mt-1 text-sm text-red-600">{errors.mobileNumber}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Email
-              </label>
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-forest-green/50 focus:border-forest-green ${
-                  errors.email ? "border-red-500" : ""
-                }`}
-                placeholder="Enter your email address"
-                required
-              />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                City
-              </label>
-              <input
-                type="text"
-                value={form.city}
-                onChange={(e) => setForm({ ...form, city: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.city ? "border-red-500" : ""
-                }`}
-                placeholder="Enter your city"
-                required
-              />
-              {errors.city && (
-                <p className="mt-1 text-sm text-red-600">{errors.city}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Check-in Date
-              </label>
-              <input
-                type="date"
-                min={new Date().toISOString().slice(0, 10)}
-                value={form.checkInDate}
-                onChange={(e) => setForm({ ...form, checkInDate: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.checkInDate ? "border-red-500" : ""
-                }`}
-                required
-              />
-              {errors.checkInDate && (
-                <p className="mt-1 text-sm text-red-600">{errors.checkInDate}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Check-out Date
-              </label>
-              <input
-                type="date"
-                min={form.checkInDate || new Date().toISOString().slice(0, 10)}
-                value={form.checkOutDate}
-                onChange={(e) => setForm({ ...form, checkOutDate: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.checkOutDate ? "border-red-500" : ""
-                }`}
-                required
-              />
-              {errors.checkOutDate && (
-                <p className="mt-1 text-sm text-red-600">{errors.checkOutDate}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Number of Adults
-              </label>
-              <input
-                type="number"
-                min="1"
-                value={form.adults}
-                onChange={(e) => setForm({ ...form, adults: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.adults ? "border-red-500" : ""
-                }`}
-                placeholder="Enter number of adults"
-                required
-              />
-              {errors.adults && (
-                <p className="mt-1 text-sm text-red-600">{errors.adults}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Number of Children
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={form.children}
-                onChange={(e) => setForm({ ...form, children: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.children ? "border-red-500" : ""
-                }`}
-                placeholder="Enter number of children"
-                required
-              />
-              {errors.children && (
-                <p className="mt-1 text-sm text-red-600">{errors.children}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Pet Type
-              </label>
-              <select
-                value={form.petType}
-                onChange={(e) => setForm({ ...form, petType: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.petType ? "border-red-500" : ""
-                }`}
-                required
-              >
-                <option value="">Select pet type</option>
-                <option value="Dog">Dog</option>
-                <option value="Cat">Cat</option>
-                <option value="Other">Other</option>
-              </select>
-              {errors.petType && (
-                <p className="mt-1 text-sm text-red-600">{errors.petType}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Number of Pets
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={form.numPets}
-                onChange={(e) => setForm({ ...form, numPets: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.numPets ? "border-red-500" : ""
-                }`}
-                placeholder="Enter number of pets"
-                required
-              />
-              {errors.numPets && (
-                <p className="mt-1 text-sm text-red-600">{errors.numPets}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Pet Size
-              </label>
-              <select
-                value={form.petSize}
-                onChange={(e) => setForm({ ...form, petSize: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary ${
-                  errors.petSize ? "border-red-500" : ""
-                }`}
-                required
-              >
-                <option value="">Select pet size</option>
-                <option value="Small">Small</option>
-                <option value="Medium">Medium</option>
-                <option value="Large">Large</option>
-              </select>
-              {errors.petSize && (
-                <p className="mt-1 text-sm text-red-600">{errors.petSize}</p>
-              )}
-            </div>
-            <div>
-              <label className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
-                Special Requirements
-              </label>
-              <textarea
-                value={form.specialRequirements}
-                onChange={(e) => setForm({ ...form, specialRequirements: e.target.value })}
-                className={`block w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-md focus:ring-2 focus:ring-bg-primary/50 focus:border-bg-primary`}
-                rows={3}
-                placeholder="Any special requests or notes?"
-              />
-            </div>
-          </div>
-
-          <label className="flex items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1 h-4 w-4 accent-primary" /><span>I agree to the <a href="/privacy" className="font-semibold text-primary underline">Privacy Policy</a> and allow my enquiry to be stored and sent through email, Google Sheets and WhatsApp.</span></label>
-          {submitError && <p role="alert" className="text-sm text-red-700">{submitError}</p>}
-          <div className="flex flex-col md:flex-row md:space-x-4 justify-center">
-            <Button
-              type="submit"
-              variant="primary"
-              className="w-full md:w-auto"
-              disabled={Object.keys(errors).length > 0 || submitting || !consent}
-            >
-              {submitting ? "Saving enquiry…" : "Submit Inquiry"}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+  return <form onSubmit={submit} noValidate className="grid gap-5 sm:grid-cols-2">
+    <label className="absolute -left-[10000px]" aria-hidden="true">Website<input value={website} onChange={(e) => setWebsite(e.target.value)} tabIndex={-1} autoComplete="off" /></label>
+    <label className="text-sm font-medium sm:col-span-2">Property<select value={form.property} onChange={(e) => changeProperty(e.target.value)} className={cls}>{properties.map((property) => <option key={property.id}>{property.title}</option>)}</select></label>
+    <label className="text-sm font-medium">Check-in date<input type="date" min={minDate} value={form.checkIn} onChange={(e) => { set("checkIn", e.target.value); if (form.checkOut && form.checkOut <= e.target.value) set("checkOut", ""); }} className={cls} />{error("checkIn")}</label>
+    <label className="text-sm font-medium">Check-out date<input type="date" min={form.checkIn ? new Date(new Date(`${form.checkIn}T00:00:00`).getTime() + 86400000).toISOString().slice(0,10) : minDate} value={form.checkOut} onChange={(e) => set("checkOut", e.target.value)} className={cls} />{error("checkOut")}</label>
+    <label className="text-sm font-medium">Booking unit<select value={form.bookingUnit} onChange={(e) => set("bookingUnit", e.target.value)} className={cls}>{selected.bookingUnits.map((item) => <option key={item.name} value={item.name}>{item.name} — {item.capacity}</option>)}</select></label>
+    <label className="text-sm font-medium">Meal plan<select value={form.mealPlan} onChange={(e) => set("mealPlan", e.target.value)} className={cls}>{mealPlans.map((plan) => <option key={plan.code} value={plan.code}>{plan.code} — {plan.label}</option>)}</select></label>
+    {([["adults","Adults",1],["children","Children",0],["pets","Number of pets",0]] as const).map(([key,label,min]) => <label key={key} className="text-sm font-medium">{label}<input type="number" min={min} max={key === "pets" ? 12 : unit.maxGuests} value={form[key]} onChange={(e) => set(key,e.target.value)} className={cls} />{error(key)}</label>)}
+    <label className="text-sm font-medium">Pet type<select value={form.petType} onChange={(e) => set("petType",e.target.value)} className={cls}><option>Dog</option><option>Cat</option><option>Other companion animal</option><option value="">No pets</option></select></label>
+    <label className="text-sm font-medium">Breed/type<input value={form.breed} onChange={(e) => set("breed",e.target.value)} className={cls} />{error("breed")}</label>
+    <label className="text-sm font-medium">Guest name<input value={form.guestName} onChange={(e) => set("guestName",e.target.value)} autoComplete="name" className={cls} />{error("guestName")}</label>
+    <label className="text-sm font-medium">Phone<input type="tel" value={form.phone} onChange={(e) => set("phone",e.target.value)} autoComplete="tel" className={cls} />{error("phone")}</label>
+    <label className="text-sm font-medium">Email<input type="email" value={form.email} onChange={(e) => set("email",e.target.value)} autoComplete="email" className={cls} />{error("email")}</label>
+    <label className="text-sm font-medium sm:col-span-2">Special requirements/notes<textarea value={form.notes} onChange={(e) => set("notes",e.target.value)} rows={4} className={`${cls} py-3`} /></label>
+    <label className="flex items-start gap-3 text-sm leading-6 sm:col-span-2"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-primary" /><span>I agree to the <a href="/privacy" className="font-semibold text-primary underline">Privacy Policy</a> and allow my enquiry to be stored and sent through Google Sheets and WhatsApp.</span></label>{error("consent")}{error("submit")}
+    <button type="submit" disabled={submitting} className="min-h-12 rounded-full bg-primary px-6 font-semibold text-white transition hover:bg-secondary disabled:opacity-60 sm:col-span-2">{submitting ? "Sending enquiry…" : "Check Availability & Get Exact Quote"}</button>
+    {success && <div role="status" className="rounded-xl bg-emerald-50 p-4 text-sm leading-6 text-emerald-900 sm:col-span-2"><strong>Thank you! Your booking enquiry has been received. Our team will check availability and share the exact tariff shortly.</strong><br />Pets stay complimentary—there is no additional pet accommodation charge.</div>}
+  </form>;
 }

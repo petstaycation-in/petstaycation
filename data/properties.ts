@@ -1,171 +1,63 @@
-// Placeholder data for properties/stays
-export const properties = [
-  {
-    id: 1,
-    title: "Maru Retreat Farmstay",
-    location: "Pushkar countryside, Rajasthan",
-    featured: true,
-    recommended: true,
-    priorityScore: 100,
-    editorialBadge: "Petstaycation Top Pick",
-    petFriendly: true,
-    privatePool: true,
-    fullPropertyOption: true,
-    pricePerNight: 5500,
-    rating: 5.0,
-    guestCount: 8,
-    bedroomCount: 2,
-    bathroomCount: 2,
-    amenities: [
-      "Pet-friendly",
-      "Private Plunge Pool",
-      "Farm & Village Experiences",
-      "Farm-to-Table Dining",
-      "Farm Breakfast & Hi-Tea",
-      "Desert Safari"
-    ],
-    petPolicy:
-      "Companion animals are welcome. Detailed arrangements are confirmed during booking according to each pet's needs.",
-    checkIn: "13:00",
-    checkOut: "12:00",
-    highlights: [
-      "Luxury private villas",
-      "Stone base beds",
-      "Private plunge pool",
-      "Marwari home-style cooking",
-      "Authentic rural Rajasthan experience"
-    ],
-    nearbyAttractions: [
-      "Brahma Temple (13km)",
-      "Pushkar Lake (15km)",
-      "Pushkar Fair Ground (10km)",
-      "Savitri Mata Temple (15km)",
-      "Pushkar Bazaar (12km)"
-    ],
-    imageUrl: "/images/stays/maru-retreat-farmstay/hero.png",
+export const mealPlans = [
+  { code: "EP", label: "Stay only" },
+  { code: "CP", label: "Stay with breakfast" },
+  { code: "MAP", label: "Stay with breakfast and either lunch or dinner" },
+  { code: "AP", label: "Stay with breakfast, lunch and dinner" },
+] as const;
 
-    gallery: [
-  "/images/stays/maru-retreat-farmstay/hero.png",
-  "/images/stays/maru-retreat-farmstay/gallery-1.png",
-  "/images/stays/maru-retreat-farmstay/gallery-2.png",
-  "/images/stays/maru-retreat-farmstay/gallery-3.png",
-  "/images/stays/maru-retreat-farmstay/gallery-4.png",
-  "/images/stays/maru-retreat-farmstay/gallery-5.png",
-],
-    description:
-      "A peaceful luxury farmstay near Pushkar offering private villas, plunge pools, farm-to-table dining, village experiences, and authentic Marwari hospitality. Ideal for families, couples, groups, and pet parents seeking a quiet countryside escape.",
-    petSize: "Large",
-    propertyType: "Private Pool Farmstay"
+export type Property = {
+  id: number; title: string; location: string; seoDescription: string;
+  propertyType: string; pricePerNight: number; baseUnit: string;
+  capacitySummary: string; guestCount: number; bedroomCount: number;
+  bathroomCount: number; rating: number; petSize: string; priorityScore: number;
+  amenities: string[]; highlights: string[]; bookingUnits: { name: string; capacity: string; maxGuests: number }[];
+  imageUrl: string; gallery: string[]; description: string;
+};
+
+export const pricingDisclaimer = "Final tariff depends on travel dates, booking unit, number of guests, selected meal plan and weekend/holiday pricing.";
+
+export const properties: Property[] = [
+  {
+    id: 1, title: "Maru Retreat Farmstay", location: "Pushkar, Rajasthan",
+    seoDescription: "A private pet-friendly farmstay in Pushkar with villa-based stays, private plunge pools and a relaxed farm setting. Pets stay complimentary.",
+    propertyType: "Private Pool Farmstay", pricePerNight: 3499, baseUnit: "One Villa, 2 guests, EP",
+    capacitySummary: "One Villa: 2–3 guests · Both Villas: 4–8 guests", guestCount: 8,
+    bedroomCount: 2, bathroomCount: 2, rating: 5, petSize: "Large", priorityScore: 100,
+    amenities: ["Pet-friendly", "Private plunge pool", "Farm experience", "Complimentary hi-tea", "Parking"],
+    highlights: ["Private pet-friendly farmstay", "Villa-based stay", "Private plunge pool", "Farm experience", "Complimentary hi-tea", "Parking", "Pets stay complimentary"],
+    bookingUnits: [{ name: "One Villa", capacity: "2–3 guests", maxGuests: 3 }, { name: "Both Villas", capacity: "4–8 guests", maxGuests: 8 }],
+    imageUrl: "/images/stays/maru-retreat-farmstay/pet-playing-hero.png",
+    gallery: ["/images/stays/maru-retreat-farmstay/pet-playing-hero.png", "/images/stays/maru-retreat-farmstay/gallery-1.png", "/images/stays/maru-retreat-farmstay/gallery-2.png", "/images/stays/maru-retreat-farmstay/gallery-3.png", "/images/stays/maru-retreat-farmstay/gallery-4.png", "/images/stays/maru-retreat-farmstay/gallery-5.png"],
+    description: "A private villa-based farmstay near Pushkar with plunge pools and room to slow down together.",
   },
-
   {
-    id: 2,
-    title: "The Red Stone Fort",
-    location: "Jodhpur countryside, Rajasthan",
-    pricePerNight: 0,
-    rating: 0,
-    guestCount: 0,
-    bedroomCount: 4,
-    bathroomCount: 4,
-    amenities: [
-      "Pet-friendly",
-      "Outdoor Swimming Pool",
-      "Free Wi-Fi",
-      "Air Conditioned Rooms",
-      "Garden Seating Areas",
-      "Indoor Dining",
-      "Large Garden-facing Veranda",
-      "Two Gardens",
-      "Daily Housekeeping"
-    ],
-    petPolicy:
-      "Pets are welcome. Detailed conditions are confirmed during reservation according to the number, size and type of pets travelling.",
-    checkIn: "14:00",
-    checkOut: "11:00",
-    highlights: [
-      "Approximately 800 years of architectural antiquity",
-      "Present family history beginning in 1835",
-      "Only four ensuite guestrooms",
-      "Peaceful countryside setting",
-      "Outdoor swimming pool",
-      "Hosted rural and cultural experiences",
-      "Approximately one-acre residence",
-      "Freshly prepared personalised meals"
-    ],
-    nearbyAttractions: [
-      "Mehrangarh Fort",
-      "Jaswant Thada",
-      "Umaid Bhawan Palace",
-      "Mandore Gardens",
-      "Rural village trails",
-      "Rural Farms & Artisan Communities"
-    ],
+    id: 2, title: "The Red Stone Fort", location: "Near Jodhpur, Rajasthan",
+    seoDescription: "A pet-friendly heritage stay near Jodhpur for couples, families and groups, with room-wise and entire-fort booking options. Pets stay complimentary.",
+    propertyType: "Heritage Stay", pricePerNight: 5999, baseUnit: "One Room, 2 guests, EP",
+    capacitySummary: "One to Three Rooms: 2–9 guests · Entire Fort: 8–12 guests", guestCount: 12,
+    bedroomCount: 4, bathroomCount: 4, rating: 0, petSize: "Large", priorityScore: 80,
+    amenities: ["Pet-friendly", "Heritage-style stay", "Room-wise booking", "Entire-property option"],
+    highlights: ["Heritage-style pet-friendly stay", "Suitable for couples, families and groups", "Room-wise and entire-property booking options", "Pets stay complimentary"],
+    bookingUnits: [{ name: "One Room", capacity: "2–3 guests", maxGuests: 3 }, { name: "Two Rooms", capacity: "4–6 guests", maxGuests: 6 }, { name: "Three Rooms", capacity: "6–9 guests", maxGuests: 9 }, { name: "Entire Fort", capacity: "8–12 guests", maxGuests: 12 }],
     imageUrl: "/images/stays/red-stone-fort/hero/red-stone-fort-garden-facade.webp",
-
-gallery: [
-  "/images/stays/red-stone-fort/hero/red-stone-fort-garden-facade.webp",
-  "/images/stays/red-stone-fort/architecture/red-stone-fort-main-entrance.webp",
-  "/images/stays/red-stone-fort/architecture/red-stone-fort-sandstone-facade.webp",
-  "/images/stays/red-stone-fort/architecture/red-stone-fort-inner-corridor.webp",
-  "/images/stays/red-stone-fort/gardens/red-stone-fort-veranda-seating.webp",
-  "/images/stays/red-stone-fort/gardens/red-stone-fort-morning-tea.webp",
-  "/images/stays/red-stone-fort/gardens/red-stone-fort-garden-view.webp",
-  "/images/stays/red-stone-fort/experiences/red-stone-fort-hosted-welcome.webp",
-],
-    description:
-      "An intimate, pet-friendly heritage homestay in the Jodhpur countryside. The fortified residence brings together four ensuite guestrooms, gardens, a swimming pool, fresh dining and hosted rural experiences.",
-    petSize: "Large",
-    propertyType: "Heritage Homestay"
+    gallery: ["/images/stays/red-stone-fort/hero/red-stone-fort-garden-facade.webp", "/images/stays/red-stone-fort/architecture/red-stone-fort-main-entrance.webp", "/images/stays/red-stone-fort/architecture/red-stone-fort-sandstone-facade.webp", "/images/stays/red-stone-fort/architecture/red-stone-fort-inner-corridor.webp", "/images/stays/red-stone-fort/gardens/red-stone-fort-veranda-seating.webp"],
+    description: "A heritage-style countryside stay near Jodhpur, suited to couples, families and groups travelling with pets.",
   },
-
   {
-    id: 3,
-    title: "Organic Orchard Retreat",
-    location: "Rajasthan countryside",
-    pricePerNight: 4500,
-    rating: 4.8,
-    guestCount: 6,
-    bedroomCount: 2,
-    bathroomCount: 2,
-    amenities: [
-      "Pet-friendly",
-      "Organic Farm",
-      "Horse Riding",
-      "Farm-to-Table Dining",
-      "Orchard & Nature Walks",
-      "Free Parking",
-      "Wi-Fi",
-      "Family-friendly Experiences"
-    ],
-    petPolicy:
-      "Pets are welcome throughout the property. Open outdoor spaces are available for walks and play. Owners are requested to supervise pets in shared areas.",
-    checkIn: "13:00",
-    checkOut: "11:00",
-    highlights: [
-      "Diverse organic orchards and seasonal crops",
-      "Marwari horses and indigenous cow breeds",
-      "Fresh vegetarian farm-to-table meals",
-      "Pet-friendly open spaces and nature trails",
-      "Authentic slow-living experiences"
-    ],
-    nearbyAttractions: [
-      "BITS Pilani",
-      "CEERI Pilani",
-      "Pilani Town & Local Markets",
-      "Nearby Temples",
-      "Village Trails & Countryside Roads"
-    ],
+    id: 3, title: "The Organic Orchard Retreat", location: "Pilani, Rajasthan",
+    seoDescription: "A peaceful pet-friendly retreat near Pilani for couples, families and small groups. Pets stay complimentary.",
+    propertyType: "Orchard Retreat", pricePerNight: 2999, baseUnit: "One Room, 2 guests, EP",
+    capacitySummary: "One Room: 2–3 guests · Entire Retreat: 4–7 guests", guestCount: 7,
+    bedroomCount: 2, bathroomCount: 2, rating: 4.8, petSize: "Large", priorityScore: 90,
+    amenities: ["Pet-friendly", "Orchard/farm retreat", "Couples", "Families", "Small groups"],
+    highlights: ["Peaceful pet-friendly orchard/farm retreat", "Suitable for couples, families and small groups", "Pets stay complimentary"],
+    bookingUnits: [{ name: "One Room", capacity: "2–3 guests", maxGuests: 3 }, { name: "Entire Retreat", capacity: "4–7 guests", maxGuests: 7 }],
     imageUrl: "/images/stays/organic-orchard-retreat/hero.png",
-
-gallery: [
-  "/images/stays/organic-orchard-retreat/genuine-cottage.jpg",
-  "/images/stays/organic-orchard-retreat/orchards.png",
-  "/images/stays/organic-orchard-retreat/genuine-bedroom.jpg",
-  "/images/stays/organic-orchard-retreat/genuine-bathroom.jpg",
-],
-    description:
-      "A considered countryside escape set within a working organic farm, where orchards, indigenous animals and seasonal produce shape a slower rhythm of stay. Designed for families, couples and pet parents seeking fresh air, thoughtful comfort and meaningful time outdoors.",
-    petSize: "Large",
-    propertyType: "Organic Farmstay"
-  }
+    gallery: ["/images/stays/organic-orchard-retreat/hero.png", "/images/stays/organic-orchard-retreat/genuine-cottage.jpg", "/images/stays/organic-orchard-retreat/genuine-bedroom.jpg", "/images/stays/organic-orchard-retreat/genuine-bathroom.jpg"],
+    description: "A peaceful orchard and farm retreat near Pilani for couples, families and small groups travelling with pets.",
+  },
 ];
+
+export function getProperty(value: string | number) {
+  return properties.find((property) => property.id === Number(value) || property.title === value);
+}

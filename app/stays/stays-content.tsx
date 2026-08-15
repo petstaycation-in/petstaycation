@@ -5,26 +5,10 @@ import { useMemo, useState } from "react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import StaysFilter from "@/components/ui/StaysFilter";
 import PropertyCard from "@/components/ui/PropertyCard";
-
-interface Property {
-  id: number;
-  title: string;
-  location: string;
-  propertyType: string;
-  pricePerNight: number;
-  guestCount: number;
-  petSize: string;
-  rating: number;
-  bedroomCount: number;
-  bathroomCount: number;
-  amenities: string[];
-  imageUrl: string;
-  description: string;
-  priorityScore?: number;
-}
+import type { Property as CommercialProperty } from "@/data/properties";
 
 interface StaysContentProps {
-  properties: Array<Property>;
+  properties: Array<CommercialProperty>;
 }
 
 export default function StaysContent({ properties }: StaysContentProps) {
@@ -244,7 +228,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
                       <p className="mt-1 text-sm text-slate-600">{property.location}</p>
                     </div>
                     <span className="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700">
-                      {property.pricePerNight > 0 ? `₹${property.pricePerNight}/night` : "Tariff on request"}
+                      Starting from ₹{property.pricePerNight.toLocaleString("en-IN")}/night
                     </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between text-sm text-slate-600">

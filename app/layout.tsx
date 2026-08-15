@@ -28,7 +28,7 @@ const libre = Libre_Baskerville({
 
 export const metadata: Metadata = {
   title: "Pet Staycation",
-  description: "Luxury pet-friendly travel experiences across Rajasthan",
+  description: "Pet-friendly stays across Rajasthan where pets stay complimentary",
   metadataBase: new URL("https://petstaycation.in"),
 };
 
@@ -42,7 +42,7 @@ const schema = {
   "areaServed": "India",
   "serviceType": [
     "Pet-friendly stays",
-    "Luxury travel experiences",
+    "Pets stay complimentary",
     "Holiday planning"
   ],
 };

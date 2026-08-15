@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-xl font-bold text-surface">Pet Staycation</h3>
             <p className="text-surface/80">
-              Luxury pet-friendly travel experiences across Rajasthan&apos;s most
+              Pet-friendly stays across Rajasthan&apos;s most
               magnificent destinations.
             </p>
           </div>

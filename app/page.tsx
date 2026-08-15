@@ -6,11 +6,11 @@ import { properties } from "@/data/properties";
 import { destinations } from "@/data/destinations";
 
 export const metadata = {
-  title: "Luxury Pet-Friendly Stays in Rajasthan | Pet Staycation",
-  description: "Discover premium pet-friendly resorts, farm stays, and palace retreats across Rajasthan. Book unforgettable escapes where your pets are treated like royalty.",
+  title: "Pet-Friendly Stays in Rajasthan | Pets Stay Complimentary",
+  description: "Discover private pet-friendly farmstays, retreats and heritage stays across Rajasthan. Check availability and receive an exact quote through Petstaycation.",
   openGraph: {
-    title: "Luxury Pet-Friendly Stays in Rajasthan | Pet Staycation",
-    description: "Discover premium pet-friendly resorts, farm stays, and palace retreats across Rajasthan. Book unforgettable escapes where your pets are treated like royalty.",
+    title: "Pet-Friendly Stays in Rajasthan | Pets Stay Complimentary",
+    description: "Discover private pet-friendly farmstays, retreats and heritage stays across Rajasthan. Check availability and receive an exact quote through Petstaycation.",
     url: "https://petstaycation.in/",
     siteName: "Pet Staycation",
     images: [
@@ -50,16 +50,14 @@ export default function Home() {
 
       <h1 className="font-['Libre_Baskerville'] text-4xl font-semibold leading-tight tracking-[0.01em] text-slate-900 sm:text-5xl lg:text-6xl">
 
-        Luxury Pet-Friendly Holidays
-        <br />
-        Across Rajasthan
+        Pet-Friendly Stays Where Pets Stay Complimentary
 
       </h1>
 
 
       <p className="mt-5 max-w-xl text-lg leading-8 text-slate-600">
 
-        Discover verified pet-friendly resorts, farm stays, and luxury retreats where you and your furry companion can relax, explore, and create unforgettable memories together.
+        Discover private farmstays, retreats and heritage stays across Rajasthan. Check availability and receive an exact quote through Petstaycation.
 
       </p>
 
@@ -73,7 +71,7 @@ export default function Home() {
           size="lg" 
           className="rounded-full px-7"
         >
-          Explore Pet-Friendly Stays
+          Check Availability &amp; Get Exact Quote
         </Button>
 
 
@@ -244,10 +242,10 @@ export default function Home() {
         <section className="mt-16">
           <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Featured stays</p>
-              <h2 className="font-['Libre_Baskerville'] text-3xl font-semibold text-slate-900">Luxury stays crafted for memorable escapes</h2>
+              <p className="text-sm font-semibold uppercase tracking-[0.25em] text-primary">Three Rajasthan stays</p>
+              <h2 className="font-['Libre_Baskerville'] text-3xl font-semibold text-slate-900">Pets Stay Complimentary</h2>
             </div>
-            <p className="max-w-2xl text-sm leading-7 text-slate-600">Browse a selection of premium properties where design, comfort, and pet-friendly hospitality come together in Rajasthan.</p>
+            <p className="max-w-2xl text-sm leading-7 text-slate-600">No additional accommodation charge for pets. Choose a stay, then share your dates and group details for an exact quote.</p>
           </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

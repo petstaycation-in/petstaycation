@@ -4,7 +4,7 @@ import StaysContent from "./stays-content";
 
 export const metadata = {
   title: "Pet-Friendly Stays in Rajasthan | Pet Staycation",
-  description: "Browse pet-friendly resorts, cottages, farm stays and nature retreats across Rajasthan.",
+  description: "Browse pet-friendly farmstays, retreats and heritage stays across Rajasthan where pets stay complimentary.",
   openGraph: {
     title: "Pet-Friendly Stays in Rajasthan | Pet Staycation",
     description: "Browse pet-friendly resorts, cottages, farm stays and nature retreats across Rajasthan.",
