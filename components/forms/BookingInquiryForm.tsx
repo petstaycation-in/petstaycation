@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
+import { sendGTMEvent } from "@next/third-parties/google";
 import { getProperty, mealPlans, properties } from "@/data/properties";
 
 type Props = { stayTitle?: string };
@@ -12,6 +13,8 @@ export default function BookingInquiryForm({ stayTitle = properties[0].title }: 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false); const [submitting, setSubmitting] = useState(false); const [success, setSuccess] = useState(false);
   const [website, setWebsite] = useState(""); const [startedAt] = useState(() => Date.now());
+  const submissionInFlight = useRef(false);
+  const conversionFired = useRef(false);
   const minDate = useMemo(() => new Date().toISOString().slice(0, 10), []);
   const selected = getProperty(form.property) ?? properties[0];
   const unit = selected.bookingUnits.find((item) => item.name === form.bookingUnit) ?? selected.bookingUnits[0];
@@ -21,7 +24,9 @@ export default function BookingInquiryForm({ stayTitle = properties[0].title }: 
 
   function changeProperty(value: string) { const property = getProperty(value) ?? properties[0]; setForm((current) => ({ ...current, property: property.title, bookingUnit: property.bookingUnits[0].name, adults: "2", children: "0" })); }
   async function submit(event: FormEvent) {
-    event.preventDefault(); const next: Record<string, string> = {}; const guests = Number(form.adults) + Number(form.children);
+    event.preventDefault();
+    if (submissionInFlight.current) return;
+    const next: Record<string, string> = {}; const guests = Number(form.adults) + Number(form.children);
     if (!form.checkIn || form.checkIn < minDate) next.checkIn = "Choose today or a future date.";
     if (!form.checkOut || form.checkOut <= form.checkIn) next.checkOut = "Check-out must be after check-in.";
     if (Number(form.adults) < 1) next.adults = "At least one adult is required.";
@@ -32,10 +37,16 @@ export default function BookingInquiryForm({ stayTitle = properties[0].title }: 
     if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Enter a valid email."; if (!consent) next.consent = "Privacy consent is required.";
     setErrors(next); if (Object.keys(next).length) return;
     const message = ["Petstaycation booking enquiry", `Property: ${form.property}`, `Booking Unit: ${form.bookingUnit}`, `Meal Plan: ${form.mealPlan}`, `Check-in: ${form.checkIn}`, `Check-out: ${form.checkOut}`, `Adults: ${form.adults}`, `Children: ${form.children}`, `Pets: ${form.pets}`, `Pet type: ${form.petType || "None"}`, `Breed/type: ${form.breed || "None"}`, `Guest: ${form.guestName}`, `Phone: ${form.phone}`, `Email: ${form.email}`, `Notes: ${form.notes || "None"}`].join("\n");
-    setSubmitting(true); setSuccess(false);
+    submissionInFlight.current = true; conversionFired.current = false; setSubmitting(true); setSuccess(false);
     try { const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "booking", name: form.guestName, email: form.email, phone: form.phone, subject: `Booking enquiry: ${form.property}`, details: { ...form, selectedProperty: form.property, numberOfPets: form.pets, petBreedType: form.breed, specialRequirements: form.notes }, privacyConsent: consent, website, startedAt }) }); if (!response.ok) { const result = await response.json().catch(() => null) as { error?: string } | null; throw new Error(result?.error || "We could not save your enquiry."); }
-      window.dispatchEvent(new CustomEvent("petstaycation:analytics", { detail: { event: "enquiry_form_submit", property: selected.id } })); window.open(`https://wa.me/919649088717?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); setSuccess(true);
-    } catch (caught) { setErrors({ submit: caught instanceof Error ? caught.message : "We could not connect. Please try again." }); } finally { setSubmitting(false); }
+      if (!conversionFired.current) {
+        conversionFired.current = true;
+        const eventParameters = { form_name: "booking_enquiry", property_public_name: form.property, booking_unit: form.bookingUnit, meal_plan: form.mealPlan, lead_source: "website" };
+        sendGTMEvent({ event: "form_submit", ...eventParameters });
+        sendGTMEvent({ event: "generate_lead", ...eventParameters });
+      }
+      window.open(`https://wa.me/919649088717?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer"); setSuccess(true);
+    } catch (caught) { setErrors({ submit: caught instanceof Error ? caught.message : "We could not connect. Please try again." }); } finally { submissionInFlight.current = false; setSubmitting(false); }
   }
 
   return <form onSubmit={submit} noValidate className="grid gap-5 sm:grid-cols-2">
