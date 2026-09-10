@@ -5,11 +5,11 @@ import { sendGTMEvent } from "@next/third-parties/google";
 import { getProperty, mealPlans, properties } from "@/data/properties";
 
 type Props = { stayTitle?: string };
-type State = { property: string; checkIn: string; checkOut: string; adults: string; children: string; pets: string; petType: string; breed: string; bookingUnit: string; mealPlan: string; guestName: string; phone: string; email: string; notes: string };
+type State = { property: string; checkIn: string; checkOut: string; adults: string; children: string; pets: string; petType: string; breed: string; bookingUnit: string; mealPlan: string; guestName: string; phone: string; email: string; budget: string; source: string; notes: string };
 
 export default function BookingInquiryForm({ stayTitle = properties[0].title }: Props) {
   const initialProperty = getProperty(stayTitle) ?? properties[0];
-  const [form, setForm] = useState<State>({ property: initialProperty.title, checkIn: "", checkOut: "", adults: "2", children: "0", pets: "1", petType: "Dog", breed: "", bookingUnit: initialProperty.bookingUnits[0].name, mealPlan: "EP", guestName: "", phone: "", email: "", notes: "" });
+  const [form, setForm] = useState<State>({ property: initialProperty.title, checkIn: "", checkOut: "", adults: "2", children: "0", pets: "1", petType: "Dog", breed: "", bookingUnit: initialProperty.bookingUnits[0].name, mealPlan: "EP", guestName: "", phone: "", email: "", budget: "", source: "Website", notes: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [consent, setConsent] = useState(false); const [submitting, setSubmitting] = useState(false); const [success, setSuccess] = useState(false);
   const [website, setWebsite] = useState(""); const [startedAt] = useState(() => Date.now());
@@ -36,7 +36,7 @@ export default function BookingInquiryForm({ stayTitle = properties[0].title }: 
     if (!form.guestName.trim()) next.guestName = "Enter your name."; if (!form.phone.trim()) next.phone = "Enter your phone number.";
     if (!/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Enter a valid email."; if (!consent) next.consent = "Privacy consent is required.";
     setErrors(next); if (Object.keys(next).length) return;
-    const message = ["Petstaycation booking enquiry", `Property: ${form.property}`, `Booking Unit: ${form.bookingUnit}`, `Meal Plan: ${form.mealPlan}`, `Check-in: ${form.checkIn}`, `Check-out: ${form.checkOut}`, `Adults: ${form.adults}`, `Children: ${form.children}`, `Pets: ${form.pets}`, `Pet type: ${form.petType || "None"}`, `Breed/type: ${form.breed || "None"}`, `Guest: ${form.guestName}`, `Phone: ${form.phone}`, `Email: ${form.email}`, `Notes: ${form.notes || "None"}`].join("\n");
+    const message = ["Petstaycation booking enquiry", `Property: ${form.property}`, `Booking Unit: ${form.bookingUnit}`, `Meal Plan: ${form.mealPlan}`, `Check-in: ${form.checkIn}`, `Check-out: ${form.checkOut}`, `Adults: ${form.adults}`, `Children: ${form.children}`, `Pets: ${form.pets}`, `Pet type: ${form.petType || "None"}`, `Breed/type: ${form.breed || "None"}`, `Budget: ${form.budget || "Not specified"}`, `Guest: ${form.guestName}`, `Phone: ${form.phone}`, `Email: ${form.email}`, `Notes: ${form.notes || "None"}`].join("\n");
     submissionInFlight.current = true; conversionFired.current = false; setSubmitting(true); setSuccess(false);
     try { const response = await fetch("/api/enquiries", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ type: "booking", name: form.guestName, email: form.email, phone: form.phone, subject: `Booking enquiry: ${form.property}`, details: { ...form, selectedProperty: form.property, numberOfPets: form.pets, petBreedType: form.breed, specialRequirements: form.notes }, privacyConsent: consent, website, startedAt }) }); if (!response.ok) { const result = await response.json().catch(() => null) as { error?: string } | null; throw new Error(result?.error || "We could not save your enquiry."); }
       if (!conversionFired.current) {
@@ -62,6 +62,8 @@ export default function BookingInquiryForm({ stayTitle = properties[0].title }: 
     <label className="text-sm font-medium">Guest name<input value={form.guestName} onChange={(e) => set("guestName",e.target.value)} autoComplete="name" className={cls} />{error("guestName")}</label>
     <label className="text-sm font-medium">Phone<input type="tel" value={form.phone} onChange={(e) => set("phone",e.target.value)} autoComplete="tel" className={cls} />{error("phone")}</label>
     <label className="text-sm font-medium">Email<input type="email" value={form.email} onChange={(e) => set("email",e.target.value)} autoComplete="email" className={cls} />{error("email")}</label>
+    <label className="text-sm font-medium">Budget (optional)<input value={form.budget} onChange={(e) => set("budget", e.target.value)} placeholder="For example, INR 10,000" className={cls} /></label>
+    <label className="text-sm font-medium">How did you find us?<select value={form.source} onChange={(e) => set("source", e.target.value)} className={cls}><option>Website</option><option>WhatsApp</option><option>Instagram</option><option>Referral</option><option>Other</option></select></label>
     <label className="text-sm font-medium sm:col-span-2">Special requirements/notes<textarea value={form.notes} onChange={(e) => set("notes",e.target.value)} rows={4} className={`${cls} py-3`} /></label>
     <label className="flex items-start gap-3 text-sm leading-6 sm:col-span-2"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-primary" /><span>I agree to the <a href="/privacy" className="font-semibold text-primary underline">Privacy Policy</a> and allow my enquiry to be stored and sent through Google Sheets and WhatsApp.</span></label>{error("consent")}{error("submit")}
     <button type="submit" disabled={submitting} className="min-h-12 rounded-full bg-primary px-6 font-semibold text-white transition hover:bg-secondary disabled:opacity-60 sm:col-span-2">{submitting ? "Sending enquiry…" : "Check Availability & Get Exact Quote"}</button>

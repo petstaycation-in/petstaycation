@@ -1,145 +1,51 @@
 import SectionHeading from "@/components/ui/SectionHeading";
 import Container from "@/components/ui/Container";
-import Image from 'next/image';
+import Link from "next/link";
 
 export const metadata = {
-  title: "Pet Travel Journal - Blog | Pet Staycation",
-  description: "Expert tips, destination guides, and stories from luxury pet-friendly travels across Rajasthan and beyond.",
-  openGraph: {
-    title: "Pet Travel Journal - Blog | Pet Staycation",
-    description: "Expert tips, destination guides, and stories from luxury pet-friendly travels across Rajasthan and beyond.",
-    url: "https://petstaycation.in/blog",
-    siteName: "Pet Staycation",
-    images: [
-      {
-        url: "https://petstaycation.in/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Pet Staycation logo",
-      },
-    ],
-    locale: "en_IN",
-  },
-  twitter: {
-    handle: "@petstaycation",
-    site: "@petstaycation",
-    cardType: "summary_large_image",
-  },
-  alternates: {
-    canonical: "https://petstaycation.in/blog",
-  },
+  title: "Pet Travel Journal | Pet Staycation",
+  description: "Evidence-led planning notes for travelling with your dog from Jaipur and enquiring about Marubhoomi Pushkar.",
+  alternates: { canonical: "https://petstaycation.in/blog" },
 };
 
+const posts = [
+  {
+    category: "Jaipur travel guide",
+    title: "Where Can I Travel With My Dog From Jaipur?",
+    summary: "Start with the destination and stay details that can actually be verified for your dates.",
+    body: "Pushkar is the documented destination currently available in this journal. For a useful enquiry, share your travel dates, guest count, pet count, pet type and breed or type. The Marubhoomi Pushkar baseline records weekday INR 4,000, weekend INR 5,500, long weekend INR 6,000, a 30% advance and complimentary pets. These details still require reconfirmation before booking or payment.",
+  },
+  {
+    category: "Marubhoomi Pushkar",
+    title: "Marubhoomi Pushkar: What to Confirm Before You Book",
+    summary: "A short checklist for turning a pet-stay enquiry into a clear written proposal.",
+    body: "Ask for current availability, the available room or unit, guest capacity, pet rules, cancellation terms and the current tariff. The operating baseline says pets are complimentary and the advance is 30%, but those points should appear in the written confirmation for your dates before any payment.",
+  },
+  {
+    category: "Marubhoomi Pushkar",
+    title: "A Simple Marubhoomi Pushkar Rate Check",
+    summary: "Use the documented weekday, weekend and long-weekend baselines as a starting point, not a final quote.",
+    body: "The current working baseline is INR 4,000 on a weekday, INR 5,500 on a weekend and INR 6,000 on a long weekend. Rates are treated as historical or unverified until reconfirmed, so send dates and pet details through the enquiry form to request the exact current quote.",
+  },
+  {
+    category: "Marubhoomi Pushkar",
+    title: "How to Send a Booking-Ready Marubhoomi Enquiry",
+    summary: "The details that help the team ask the property one clear question the first time.",
+    body: "Include check-in and check-out dates, adults, children, number of pets, pet type, breed or type, preferred unit if known, meal plan, budget and any special requirements. The form records your source and notes privately so the team can qualify the request and track the next booking step without exposing internal commission information.",
+  },
+];
+
 export default function BlogPage() {
-  return (
-    <Container>
-      <SectionHeading
-        title="Pet Travel Journal"
-        description="Expert tips, destination guides, and stories from luxury pet-friendly travels across Rajasthan and beyond."
-      />
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Placeholder blog posts */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-          <div className="aspect-w-16 aspect-h-9 relative">
-            <Image
-              src="/pstlogo.png"
-              alt="Pet travel tips"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <span className="inline-block mb-3 px-3 py-1 bg-forest-green/10 text-forest-green text-xs font-medium rounded">
-              Travel Guide
-            </span>
-            <h3 className="mb-2 text-lg font-semibold text-forest-green">
-              10 Essential Tips for Traveling with Pets in Rajasthan
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-              Learn how to make your pet&apos;s journey comfortable and enjoyable
-              while exploring the magnificent forts and palaces of Rajasthan.
-            </p>
-            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-          <div className="aspect-w-16 aspect-h-9 relative">
-            <Image
-              src="/pstlogo.png"
-              alt="Pet friendly hotels"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <span className="inline-block mb-3 px-3 py-1 bg-primary/10 text-bg-primary text-xs font-medium rounded">
-              Featured Stay
-            </span>
-            <h3 className="mb-2 text-lg font-semibold text-bg-primary">
-              The Most Luxurious Pet-Friendly Hotels in Jaipur
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-              Discover palatial accommodations that welcome both you and your
-              furry family members with royal treatment.
-            </p>
-            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-          <div className="aspect-w-16 aspect-h-9 relative">
-            <Image
-              src="/pstlogo.png"
-              alt="Pet wellness travel"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <span className="inline-block mb-3 px-3 py-1 bg-primary/10 text-bg-primary text-xs font-medium rounded">
-              Wellness
-            </span>
-            <h3 className="mb-2 text-lg font-semibold text-bg-primary">
-              Wellness Retreats for Pets and Owners in Udaipur
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-              Experience holistic wellness programs designed specifically for
-              pets and their owners amidst the serene lakes of Udaipur.
-            </p>
-            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg">
-          <div className="aspect-w-16 aspect-h-9 relative">
-            <Image
-              src="/pstlogo.png"
-              alt="Desert adventure with pets"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="p-6">
-            <span className="inline-block mb-3 px-3 py-1 bg-primary/10 text-bg-primary text-xs font-medium rounded">
-              Adventure
-            </span>
-            <h3 className="mb-2 text-lg font-semibold text-bg-primary">
-              Desert Camping with Pets: A Jaisalmer Adventure Guide
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-              Experience the magic of the Thar Desert with your pet by your
-              side - from camel rides to starlit dinners.
-            </p>
-            <span className="inline-block text-sm font-medium text-slate-500">Article coming soon</span>
-          </div>
-        </div>
-      </div>
-    </Container>
-  );
+  return <Container>
+    <SectionHeading title="Pet Travel Journal" description="Planning notes based on documented property information, with reconfirmation prompts wherever details may have changed." />
+    <div className="grid gap-6 md:grid-cols-2">
+      {posts.map((post) => <article key={post.title} className="flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+        <span className="text-xs font-semibold uppercase tracking-[.18em] text-primary">{post.category}</span>
+        <h2 className="mt-3 font-['Libre_Baskerville'] text-2xl font-semibold text-slate-900">{post.title}</h2>
+        <p className="mt-3 font-medium leading-7 text-slate-700">{post.summary}</p>
+        <p className="mt-4 flex-1 text-sm leading-7 text-slate-600">{post.body}</p>
+        <Link href="/stays/1#booking" className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-5 text-sm font-semibold text-white hover:bg-secondary">Enquire about Marubhoomi</Link>
+      </article>)}
+    </div>
+  </Container>;
 }

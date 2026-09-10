@@ -32,7 +32,18 @@ export async function POST(request: NextRequest) {
   if (!name || !subject || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return Response.json({ error: "Valid name, email and subject are required." }, { status: 400 });
 
   const rawDetails = body.details && typeof body.details === "object" ? body.details as Record<string, unknown> : {};
-  const details = Object.fromEntries(Object.entries(rawDetails).slice(0, 30).map(([key, value]) => [clean(key, 60), clean(value, 1000)]));
+  const details = Object.fromEntries(Object.entries(rawDetails).slice(0, 30).map(([key, value]) => [clean(key, 60), clean(value, 1000)])) as Record<string, string>;
+  if (body.type === "booking") {
+    const checkIn = details.checkIn || "";
+    const checkOut = details.checkOut || "";
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(checkIn) || !/^\d{4}-\d{2}-\d{2}$/.test(checkOut) || checkOut <= checkIn) return Response.json({ error: "Valid travel dates are required." }, { status: 400 });
+    details.enquiryStatus = "New";
+    details.bookingValue = details.bookingValue || "";
+    details.commission = details.commission || "";
+    details.ravindraShare = details.ravindraShare || "";
+    details.paymentStatus = details.paymentStatus || "Not started";
+    details.notes = details.notes || details.specialRequirements || "";
+  }
   const lead: LeadPayload = { type: clean(body.type) as LeadPayload["type"], name, email, phone, subject, details, privacyConsent: true };
   try {
     await deliverLead(lead);
