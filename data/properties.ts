@@ -26,6 +26,7 @@ export type PropertyRateCard = {
 export type Property = {
   id: number; title: string; location: string; seoDescription: string;
   propertyTag: string;
+  cardFeatures: string[];
   propertyType: string; pricePerNight: number; baseUnit: string;
   capacitySummary: string; guestCount: number; bedroomCount: number;
   bathroomCount: number; rating: number; petSize: string; priorityScore: number;
@@ -42,6 +43,7 @@ export const properties: Property[] = [
     id: 1, title: "Maru Retreat Farmstay", location: "Pushkar, Rajasthan",
     seoDescription: "A pet-friendly stay option in Pushkar with weekday, weekend and long-weekend rate guidance. Request a current quote for your dates.",
     propertyTag: "Private plunge pool escape",
+    cardFeatures: ["Private plunge pool", "Farm experience", "Complimentary hi-tea"],
     propertyType: "Accommodation details to be confirmed", pricePerNight: 4000, baseUnit: "Weekday rate: INR 4,000",
     capacitySummary: "Guest capacity and booking unit: to be confirmed", guestCount: 0,
     bedroomCount: 0, bathroomCount: 0, rating: 0, petSize: "To be confirmed", priorityScore: 100,
@@ -59,6 +61,7 @@ export const properties: Property[] = [
     id: 2, title: "The Red Stone Fort", location: "Near Jodhpur, Rajasthan",
     seoDescription: "A pet-friendly heritage stay near Jodhpur for couples, families and groups, with room-wise and entire-fort booking options. Pets stay complimentary.",
     propertyTag: "Royal heritage retreat",
+    cardFeatures: ["Heritage setting", "Room-wise booking", "Entire fort option"],
     propertyType: "Heritage Stay", pricePerNight: 5999, baseUnit: "One Room, 2 guests, EP",
     capacitySummary: "One to Three Rooms: 2–9 guests · Entire Fort: 8–12 guests", guestCount: 12,
     bedroomCount: 4, bathroomCount: 4, rating: 0, petSize: "Large", priorityScore: 80,
@@ -75,6 +78,7 @@ export const properties: Property[] = [
     id: 3, title: "The Organic Orchard Retreat", location: "Pilani, Rajasthan",
     seoDescription: "A peaceful pet-friendly retreat near Pilani for couples, families and small groups. Pets stay complimentary.",
     propertyTag: "Farm & orchard retreat",
+    cardFeatures: ["Orchard setting", "Farm retreat", "Couples & families"],
     propertyType: "Orchard Retreat", pricePerNight: 2999, baseUnit: "One Room, 2 guests, EP",
     capacitySummary: "One Room: 2–3 guests · Entire Retreat: 4–7 guests", guestCount: 7,
     bedroomCount: 2, bathroomCount: 2, rating: 4.8, petSize: "Large", priorityScore: 90,
