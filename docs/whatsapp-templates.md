@@ -12,7 +12,7 @@ To check this accurately, please confirm: check-in and check-out, adults and chi
 
 ## Quote pending reconfirmation
 
-The working baseline for Marubhoomi Pushkar is weekday INR 4,000, weekend INR 5,500 and long weekend INR 6,000, with a documented 30% advance and complimentary pets. These rates require reconfirmation for your dates. I will share the current written proposal once the property replies.
+The working baseline for Maru Retreat Farmstay is weekday INR 4,000, weekend INR 5,500 and long weekend INR 6,000, with a documented 30% advance and complimentary pets. These rates require reconfirmation for your dates. I will share the current written proposal once the property replies.
 
 ## Written proposal
 

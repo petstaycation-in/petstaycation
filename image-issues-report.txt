@@ -25,7 +25,7 @@ DETAILS OF ISSUES:
 
 4. File: app/stays/[id]/page.tsx
    - Line 82: src={stay.imageUrl} - REFERS TO MISSING IMAGES:
-     * For Maru Retreat: /placeholder-desert-palace.jpg (MISSING)
+     * For Maru Retreat Farmstay: /placeholder-desert-palace.jpg (MISSING)
      * For Red Stone Fort: /images/stays/red-stone-fort/hero.webp (MISSING)
      * For Organic Orchard: /placeholder-dunes-camp.jpg (MISSING)
 

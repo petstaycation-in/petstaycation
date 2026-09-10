@@ -113,7 +113,7 @@ export default function Home() {
 
         <Image
           src="/images/home-maru-pool-hero.png"
-          alt="A couple and their dog relaxing beside the pool at Maru Retreat"
+          alt="A couple and their dog relaxing beside the pool at Maru Retreat Farmstay"
           width={1456}
           height={1086}
           priority

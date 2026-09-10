@@ -38,7 +38,7 @@ export const pricingDisclaimer = "Final tariff depends on travel dates, booking 
 
 export const properties: Property[] = [
   {
-    id: 1, title: "Marubhoomi Pushkar", location: "Pushkar, Rajasthan",
+    id: 1, title: "Maru Retreat Farmstay", location: "Pushkar, Rajasthan",
     seoDescription: "A documented pet-friendly stay option in Pushkar with weekday, weekend and long-weekend rates that require reconfirmation before booking.",
     propertyType: "Accommodation details to be confirmed", pricePerNight: 4000, baseUnit: "Weekday rate: INR 4,000",
     capacitySummary: "Guest capacity and booking unit: to be confirmed", guestCount: 0,
