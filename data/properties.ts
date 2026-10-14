@@ -1,3 +1,5 @@
+import type { BookingUnitCode } from "@/lib/pricing/maruRetreatPricing";
+
 export const mealPlans = [
   { code: "EP", label: "Stay only" },
   { code: "CP", label: "Stay with breakfast" },
@@ -23,6 +25,14 @@ export type PropertyRateCard = {
   reconfirmationRequired: boolean;
 };
 
+export type BookingUnit = {
+  name: string;
+  capacity: string;
+  maxGuests: number;
+  code?: BookingUnitCode;
+  baseAdults?: number;
+};
+
 export type Property = {
   id: number; title: string; location: string; seoDescription: string;
   propertyTag: string;
@@ -30,9 +40,10 @@ export type Property = {
   propertyType: string; pricePerNight: number; baseUnit: string;
   capacitySummary: string; guestCount: number; bedroomCount: number;
   bathroomCount: number; rating: number; petSize: string; priorityScore: number;
-  amenities: string[]; highlights: string[]; bookingUnits: { name: string; capacity: string; maxGuests: number }[];
+  amenities: string[]; highlights: string[]; bookingUnits: BookingUnit[];
   imageUrl: string; gallery: string[]; description: string;
   verification: PropertyVerification; rateCard?: PropertyRateCard;
+  pricingModel?: "maru-date-based";
   petPolicy: { allowed: "yes" | "no" | "unconfirmed"; fee: string; notes: string };
 };
 
@@ -41,19 +52,23 @@ export const pricingDisclaimer = "Final tariff depends on travel dates, booking 
 export const properties: Property[] = [
   {
     id: 1, title: "Maru Retreat Farmstay", location: "Pushkar, Rajasthan",
-    seoDescription: "A pet-friendly stay option in Pushkar with weekday, weekend and long-weekend rate guidance. Request a current quote for your dates.",
+    seoDescription: "A private pet-friendly villa stay in Pushkar with date-based pricing, flexible meal plans and complimentary stays for pets.",
     propertyTag: "Private plunge pool escape",
     cardFeatures: ["Private plunge pool", "Farm-to-table experience", "Live cooking", "Village tours"],
-    propertyType: "Accommodation details to be confirmed", pricePerNight: 4000, baseUnit: "Weekday rate: INR 4,000",
-    capacitySummary: "Guest capacity and booking unit: to be confirmed", guestCount: 0,
+    propertyType: "Private Farmstay", pricePerNight: 4999, baseUnit: "One Villa · 2 adults · EP · date-based pricing",
+    capacitySummary: "One Villa: up to 3 guests · Full Farm: up to 6 guests · Group enquiries: 7–8 guests", guestCount: 8,
     bedroomCount: 0, bathroomCount: 0, rating: 0, petSize: "To be confirmed", priorityScore: 100,
     amenities: [],
-    highlights: ["Pets are welcome", "30% advance", "Weekday, weekend and long-weekend rate guide"],
-    bookingUnits: [{ name: "Preferred stay option", capacity: "Selected with your quote", maxGuests: 20 }],
+    highlights: ["Pets stay complimentary", "Private villa and full-farm options", "Date-based tariff estimate before enquiry"],
+    bookingUnits: [
+      { code: "ONE_VILLA", name: "One Villa", capacity: "2 guests included · up to 3 guests", baseAdults: 2, maxGuests: 3 },
+      { code: "BOTH_VILLAS", name: "Both Villas / Full Farm", capacity: "4 guests included · up to 6 guests", baseAdults: 4, maxGuests: 6 },
+      { code: "GROUP_ENQUIRY", name: "Group Enquiry", capacity: "7–8 guests · custom quote required", maxGuests: 8 },
+    ],
     imageUrl: "/images/stays/maru-retreat-farmstay/pet-playing-hero.png",
     gallery: ["/images/stays/maru-retreat-farmstay/pet-playing-hero.png", "/images/stays/maru-retreat-farmstay/gallery-1.png", "/images/stays/maru-retreat-farmstay/gallery-2.png", "/images/stays/maru-retreat-farmstay/gallery-3.png", "/images/stays/maru-retreat-farmstay/gallery-4.png", "/images/stays/maru-retreat-farmstay/gallery-5.png"],
-    description: "A relaxed pet-friendly stay option in Pushkar. Share your dates and pet details to request availability and a current quote.",
-    rateCard: { weekday: 4000, weekend: 5500, longWeekend: 6000, advancePercent: 30, currency: "INR", reconfirmationRequired: true },
+    description: "A relaxed private farmstay in Pushkar with villa and full-farm options for pet parents, families and small groups.",
+    pricingModel: "maru-date-based",
     verification: { status: "needs-reconfirmation", evidenceSource: "Petstaycation operating context supplied in this conversation", verificationDate: null, contact: null, unconfirmedFields: ["current availability", "current rates", "room or unit type", "guest capacity", "amenities", "cancellation terms", "owner contact"] },
     petPolicy: { allowed: "yes", fee: "Complimentary", notes: "The supplied baseline says pets are complimentary; confirm the property-specific rules before payment." },
   },

@@ -228,7 +228,7 @@ export default function StaysContent({ properties }: StaysContentProps) {
                       <p className="mt-1 text-sm text-slate-600">{property.location}</p>
                     </div>
                     <span className="shrink-0 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700">
-                      Starting from ₹{property.pricePerNight.toLocaleString("en-IN")}/night
+                      {property.pricingModel === "maru-date-based" ? "From" : "Starting from"} ₹{property.pricePerNight.toLocaleString("en-IN")}/night
                     </span>
                   </div>
                   <div className="mt-3 flex items-center justify-between text-sm text-slate-600">

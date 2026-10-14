@@ -1,5 +1,12 @@
 import { NextRequest } from "next/server";
 import { deliverLead, type LeadPayload } from "@/lib/lead-delivery";
+import {
+  calculateStayEstimate,
+  getMaruBookingUnitCode,
+  isMealPlanCode,
+  MARU_BOOKING_UNITS,
+  MARU_RETREAT_PROPERTY_NAME,
+} from "@/lib/pricing/maruRetreatPricing";
 
 const attempts = new Map<string, number[]>();
 const allowedTypes = new Set(["booking", "property-listing", "contact"]);
@@ -37,6 +44,32 @@ export async function POST(request: NextRequest) {
     const checkIn = details.checkIn || "";
     const checkOut = details.checkOut || "";
     if (!/^\d{4}-\d{2}-\d{2}$/.test(checkIn) || !/^\d{4}-\d{2}-\d{2}$/.test(checkOut) || checkOut <= checkIn) return Response.json({ error: "Valid travel dates are required." }, { status: 400 });
+    if ((details.property || details.selectedProperty) === MARU_RETREAT_PROPERTY_NAME) {
+      const bookingUnit = getMaruBookingUnitCode(details.bookingUnit || "");
+      const mealPlan = details.mealPlan || "";
+      const adults = Number(details.adults);
+      const children = Number(details.children);
+      const pets = Number(details.pets || details.numberOfPets || 0);
+      if (!bookingUnit || !isMealPlanCode(mealPlan) || !Number.isInteger(adults) || adults < 1 || !Number.isInteger(children) || children < 0) return Response.json({ error: "Valid stay and guest details are required." }, { status: 400 });
+      const unit = MARU_BOOKING_UNITS.find((candidate) => candidate.code === bookingUnit);
+      const guests = adults + children;
+      if (!unit || guests > unit.maxGuests || (bookingUnit === "GROUP_ENQUIRY" && guests < 7)) return Response.json({ error: "The selected stay option does not match the guest count." }, { status: 400 });
+      if (!Number.isInteger(pets) || pets < 0 || pets > 6) return Response.json({ error: "Maru Retreat Farmstay accepts up to 6 pets per enquiry." }, { status: 400 });
+      const estimate = calculateStayEstimate({ checkIn, checkOut, bookingUnit, adults, children, mealPlan });
+      if (!estimate.minimumStaySatisfied) return Response.json({ error: `A minimum stay of ${estimate.minimumStayRequired} nights applies for these dates.` }, { status: 400 });
+      details.numberOfNights = String(estimate.nights);
+      if (estimate.estimatedTotal === null) {
+        details.estimatedTariff = "Custom quote required for 7–8 guests";
+        delete details.accommodationSubtotal; delete details.extraAdultSubtotal; delete details.mealPlanSubtotal; delete details.estimatedTotal;
+      } else {
+        details.estimatedTariff = `INR ${estimate.estimatedTotal}`;
+        details.accommodationSubtotal = String(estimate.accommodationSubtotal);
+        details.extraAdultSubtotal = String(estimate.extraAdultSubtotal);
+        details.mealPlanSubtotal = String(estimate.mealPlanSubtotal);
+        details.estimatedTotal = String(estimate.estimatedTotal);
+        details.specialRateEvent = estimate.eventNames.join(", ");
+      }
+    }
     details.enquiryStatus = "New";
     details.bookingValue = details.bookingValue || "";
     details.commission = details.commission || "";

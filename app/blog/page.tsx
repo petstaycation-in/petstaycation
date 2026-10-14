@@ -13,7 +13,7 @@ const posts = [
     category: "Jaipur travel guide",
     title: "Where Can I Travel With My Dog From Jaipur?",
     summary: "Start with the destination and stay details that can actually be verified for your dates.",
-    body: "Pushkar is the documented destination currently available in this journal. For a useful enquiry, share your travel dates, guest count, pet count, pet type and breed or type. The Maru Retreat Farmstay baseline records weekday INR 4,000, weekend INR 5,500, long weekend INR 6,000, a 30% advance and complimentary pets. These details still require reconfirmation before booking or payment.",
+    body: "Pushkar is the documented destination currently available in this journal. For a useful enquiry, share your travel dates, guest count, pet count, pet type and breed or type. Maru Retreat Farmstay rates start from INR 4,999 per night for one villa, two adults and Stay Only. The form estimates each travel night separately, and Petstaycation reconfirms availability and tariff before payment. Pets stay complimentary.",
   },
   {
     category: "Maru Retreat Farmstay",
@@ -24,8 +24,8 @@ const posts = [
   {
     category: "Maru Retreat Farmstay",
     title: "A Simple Maru Retreat Farmstay Rate Check",
-    summary: "Use the documented weekday, weekend and long-weekend baselines as a starting point, not a final quote.",
-    body: "The current working baseline is INR 4,000 on a weekday, INR 5,500 on a weekend and INR 6,000 on a long weekend. Rates are treated as historical or unverified until reconfirmed, so send dates and pet details through the enquiry form to request the exact current quote.",
+    summary: "Select your dates, stay option and meal plan for a useful estimate before requesting the final quote.",
+    body: "The public starting tariff is INR 4,999 per night for one villa, two adults and Stay Only on a normal weekday. Rates vary night by night for weekends and special dates, while stay options, extra adults and meal plans can change the estimate. Petstaycation will reconfirm the final availability and tariff before payment.",
   },
   {
     category: "Maru Retreat Farmstay",

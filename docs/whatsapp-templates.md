@@ -12,7 +12,7 @@ To check this accurately, please confirm: check-in and check-out, adults and chi
 
 ## Quote pending reconfirmation
 
-The working baseline for Maru Retreat Farmstay is weekday INR 4,000, weekend INR 5,500 and long weekend INR 6,000, with a documented 30% advance and complimentary pets. These rates require reconfirmation for your dates. I will share the current written proposal once the property replies.
+Maru Retreat Farmstay rates start from INR 4,999 per night for one villa, two adults and Stay Only on a normal weekday. The website estimate reflects the selected dates, stay option, adult count and meal plan. Pets stay complimentary. Final availability and tariff will be reconfirmed by Petstaycation before payment.
 
 ## Written proposal
 
